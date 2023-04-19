@@ -12,8 +12,6 @@ export const HeaderContainer = styled.div`
   }
 `;
 
-//
-
 export const ButtonContainer = styled.div`
   display: flex;
   flex-grow: 1;

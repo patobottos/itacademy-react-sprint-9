@@ -1,5 +1,5 @@
 import { SticksContainer } from "./Sticks.styled";
-import { useState } from "react";
+//import { useState } from "react";
 import Yes from "./Yes";
 import No from "./No";
 
