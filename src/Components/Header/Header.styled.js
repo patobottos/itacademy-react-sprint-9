@@ -8,9 +8,12 @@ export const HeaderContainer = styled.div`
 
   .title {
     font-size: 1.5rem;
-    font-family: Montserrat, sans-serif;
+    font-family: Raleway, sans-serif;
+    font-weight: 500;
+
   }
 `;
+/* Lato, Montserrat, Open Sans, Raleway, Roboto */ 
 
 export const ButtonContainer = styled.div`
   display: flex;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GameboardStyled } from "./Gameboard.styled";
 import PlayingButtons from "../PlayingButtons/PlayingButtons";
 import { Stick } from "../Sticks/Sticks";
@@ -8,19 +8,30 @@ const Gameboard = () => {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ]);
 
+  const nextValues = [...allValues];
+
+useEffect(() => {
+  const initialValues = [...allValues];
+  console.log('allValues post borrado useEf', allValues);
+  console.log('nextValues post borrado useEf', nextValues);
+  
+  if(initialValues[0] !== 1) {
+    console.log('borrada fila 1!')
+  }
+}, [allValues]);
+
   const eraseStick = (stick) => {
     console.log("stick position", stick);
-
     if (allValues[stick] === 1) {
       const newValues = [...allValues];
-      console.log('newValues antes del cambio',newValues);
+      //console.log('newValues antes del cambio',newValues);
       newValues[stick] = 0;
-      console.log('newValues luego del cambio',newValues);
+      //console.log('newValues luego del cambio',newValues);
       setAllvalues(newValues);
-      console.log("allValues luego de borrado", allValues);
+      //console.log("allValues luego de borrado", allValues);
     } else {
       setAllvalues([...allValues]);
-      console.log("allValues luego de picar una ya borrada", allValues);
+      console.log("allValues post en eraseStick", allValues);
     }
   };
 
@@ -52,7 +63,7 @@ const Gameboard = () => {
         <Stick stickValue={allValues[15]} eraseStick={() => eraseStick(15)} />
       </div>
 
-      <PlayingButtons />
+      <PlayingButtons boardSetting={nextValues}/>
     </GameboardStyled>
   );
 };
