@@ -1,11 +1,11 @@
 import {ButtonContainer, PlayingBtn} from './PlayingButtons.styled';
-import detectWinner from '../../gameLogic/detectWinner';
+import computerTurn from '../../gameLogic/computerTurn';
 
 const PlayingButtons = (boardSetting) => {
 
   return (
     <ButtonContainer>
-      <PlayingBtn onClick={() => {detectWinner(boardSetting)}}>COMPUTER TURN</PlayingBtn>
+      <PlayingBtn onClick={() => {computerTurn(boardSetting)}}>COMPUTER TURN</PlayingBtn>
     </ButtonContainer>
   )
 }

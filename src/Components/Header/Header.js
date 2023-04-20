@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <p className="title">The Nim Game</p>
+      <p className="title">NIM GAME</p>
       <ButtonContainer>
         <HeaderBtn onClick={StartNewGame}>NEW GAME</HeaderBtn>
       </ButtonContainer>

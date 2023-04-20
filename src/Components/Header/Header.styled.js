@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   margin: 10px 0;
-  padding: 10px;
+  padding: 10px 20px;
   border-bottom: 0.5px solid grey;
   display: flex;
 
   .title {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-family: Raleway, sans-serif;
-    font-weight: 500;
-
+    font-weight: 800;
+    letter-spacing: 0.1rem;
   }
 `;
 /* Lato, Montserrat, Open Sans, Raleway, Roboto */ 

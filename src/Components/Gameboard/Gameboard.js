@@ -4,21 +4,24 @@ import PlayingButtons from "../PlayingButtons/PlayingButtons";
 import { Stick } from "../Sticks/Sticks";
 
 const Gameboard = () => {
+
+  const initialPileValues = [1, 3, 5, 7];
+  
   const [allValues, setAllvalues] = useState([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   ]);
 
   const nextValues = [...allValues];
 
-useEffect(() => {
-  const initialValues = [...allValues];
-  console.log('allValues post borrado useEf', allValues);
-  console.log('nextValues post borrado useEf', nextValues);
-  
-  if(initialValues[0] !== 1) {
-    console.log('borrada fila 1!')
-  }
-}, [allValues]);
+  useEffect(() => {
+    const initialValues = [...allValues];
+    console.log("allValues post borrado useEf", allValues);
+    console.log("nextValues post borrado useEf", nextValues);
+
+    if (initialValues[0] !== 1) {
+      console.log("borrada fila 1!");
+    }
+  }, [allValues]);
 
   const eraseStick = (stick) => {
     console.log("stick position", stick);
@@ -63,7 +66,7 @@ useEffect(() => {
         <Stick stickValue={allValues[15]} eraseStick={() => eraseStick(15)} />
       </div>
 
-      <PlayingButtons boardSetting={nextValues}/>
+      <PlayingButtons boardSetting={nextValues} />
     </GameboardStyled>
   );
 };
