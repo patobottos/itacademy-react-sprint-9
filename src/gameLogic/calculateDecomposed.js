@@ -1,7 +1,7 @@
 const calculateDecomposed = (originalValues) => {
 
   console.log('resultantArray al llegar a calculateDecomposed',originalValues);
-  
+
   const arrayDecomposedValues = [[], [], []];
   // console.log('arrayDecomposedValues al inicio',arrayDecomposedValues);
 
@@ -36,7 +36,9 @@ const calculateDecomposed = (originalValues) => {
     arrayDecomposedValues[1].push(groupOfTwos);
     arrayDecomposedValues[2].push(groupOfFours);
   }
-
+  
+  composeNewArrayOfValues(originalValues);
+  
   return arrayDecomposedValues;
   // console.log('arrayDecomposedValues al final',arrayDecomposedValues);
 

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-  margin: 10px 0;
-  padding: 10px 20px;
+  margin: 10px 0px;
+  padding: 5px 15px;
   border-bottom: 0.5px solid grey;
   display: flex;
 
   .title {
+    margin-left: 20px;
     font-size: 3rem;
     font-family: Raleway, sans-serif;
     font-weight: 800;
@@ -20,6 +21,22 @@ export const ButtonContainer = styled.div`
   flex-grow: 1;
   justify-content: flex-end;
   align-items: center;
+  margin: 0 20px;
+
+  .icons {
+    margin: 10px 20px;
+    height: 25px;
+    padding: 5px;
+    cursor: pointer;
+
+    :hover {
+    color: #9f9daf;
+      
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    text-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  }
 `;
 
 export const HeaderBtn = styled.button`

@@ -4,7 +4,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 15%;
+  margin-top: 30px;
 `;
 
 export const PlayingBtn = styled.button`
@@ -14,7 +14,7 @@ border: 1px solid transparent;
 height: 50px;
 width: 110px;
 border-radius: 10px;
-margin: 0 10px;
+margin: 30px 30px;
 padding: 5px;
 cursor: pointer;
 font-family: Open Sans;

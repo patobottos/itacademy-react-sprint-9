@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { GameboardStyled } from "./Gameboard.styled";
 import PlayingButtons from "../PlayingButtons/PlayingButtons";
 import { Stick } from "../Sticks/Sticks";
+import allValuesInitial, { allValuesInitial2 } from "../../gameLogic/allValuesInitial";
 
 const Gameboard = () => {
 
-  const initialPileValues = [1, 3, 5, 7];
-  
-  const [allValues, setAllvalues] = useState([
-    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  ]);
+  const [allValues, setAllvalues] = useState(allValuesInitial);
+
+  // PABLO SUGIERE AQUÍ CREAR STATE COMO ARRAY DE OBJETOS, POR LINEAS
 
   const nextValues = [...allValues];
 
@@ -18,9 +17,6 @@ const Gameboard = () => {
     console.log("allValues post borrado useEf", allValues);
     console.log("nextValues post borrado useEf", nextValues);
 
-    if (initialValues[0] !== 1) {
-      console.log("borrada fila 1!");
-    }
   }, [allValues]);
 
   const eraseStick = (stick) => {

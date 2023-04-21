@@ -5,6 +5,7 @@ function computerTurn(boardSetting) {
   // 1. WE DETECT IF THE USER IS A WINNER 
   detectWinner(boardSetting);
 
+  // ESTO DEBERÍA MEJORARLO, POR AHORA LO DEJO ASÍ
   const receivedBoardSetting = boardSetting.boardSetting;
 
   // 2. COMPUTER READS THE BOARD
@@ -15,11 +16,12 @@ function computerTurn(boardSetting) {
 
   const fourthLineSum = receivedBoardSetting[9]+ receivedBoardSetting[10]+ receivedBoardSetting[11]+ receivedBoardSetting[12]+ receivedBoardSetting[13]+ receivedBoardSetting[14]+ receivedBoardSetting[15];
   
-
   const resultantValues = [];
-  resultantValues.push(firstLineSum, secondLineSum, thirdLineSum, fourthLineSum);
-  console.log('resultantValues',resultantValues);
 
+  resultantValues.push(firstLineSum, secondLineSum,thirdLineSum,fourthLineSum );
+  console.log('resultantValues hasta aquí =>',resultantValues);
+
+  // DETECTADO UN ERROR AQUÍ!!
   const valuesAfterMove = calculateDecomposed(resultantValues);
   console.log('valuesAfterMove',valuesAfterMove);
 

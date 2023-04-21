@@ -4,7 +4,6 @@ import Gameboard from './Components/Gameboard/Gameboard';
 import Footer from './Components/Footer/Footer';
 
 
-
 function App() {
   return (
     <div className="App">
