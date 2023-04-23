@@ -4,7 +4,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin: 20px 0 20px 0;
 `;
 
 export const PlayingBtn = styled.button`
@@ -19,6 +19,7 @@ padding: 5px;
 cursor: pointer;
 font-family: Open Sans;
 font-weight: 500;
+letter-spacing: 0.04rem;
 transition: background-color 0.1s, box-shadow 0.1s;
 
 :hover {

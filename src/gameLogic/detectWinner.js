@@ -1,14 +1,13 @@
-const detectWinner = (boardSetting) => {
-  console.log('boardSetting', boardSetting);
-  const receivedBoardSetting = boardSetting.boardSetting;
+const detectWinner = (receivedBoardSetting) => {
+   console.log('receivedBoardSetting en detectWinner', receivedBoardSetting);
 
-  const sticksSum = receivedBoardSetting.reduce((accumulator, currentValue) => {
-    return accumulator + currentValue;
-  });
+  const sticksSum = receivedBoardSetting.reduce((accumulator, {stickValue}) => {
+    return accumulator + stickValue;
+  },0);
   //console.log('sticksSum', sticksSum);
 
   if (sticksSum === 1) {
-    console.log('We have a winner!');
+    alert('We have a winner!');
   } else {
     console.log("We don't have winners yet... Let's go on playing!");
   }

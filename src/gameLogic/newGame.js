@@ -4,7 +4,7 @@ import Gameboard from "../Components/Gameboard/Gameboard";
 const newGame = () => {
 
   return (
-    <Gameboard/>
+    console.log("Someone asked for a new game!")
   )
 }
 

@@ -1,35 +1,39 @@
 import detectWinner from "./detectWinner";
+import sumValuesOfLine from "./sumValuesOfLine";
 import calculateDecomposed from "./calculateDecomposed";
+import stickToErase from "./stickToErase";
 
-function computerTurn(boardSetting) {
+function computerTurn(receivedValues) {
+  //console.log('newAllValues al llegar a ComputerTurn',receivedValues);
+
+// TRANSFORMO OBJETO DE OBJETOS EN ARRAY DE OBJETOS. ESTO DEBERÍA MEJORARLO, POR AHORA LO DEJO ASÍ
+  const receivedBoardSetting = receivedValues.props;
+
   // 1. WE DETECT IF THE USER IS A WINNER 
-  detectWinner(boardSetting);
-
-  // ESTO DEBERÍA MEJORARLO, POR AHORA LO DEJO ASÍ
-  const receivedBoardSetting = boardSetting.boardSetting;
+  detectWinner(receivedBoardSetting);
 
   // 2. COMPUTER READS THE BOARD
-  const firstLineSum = receivedBoardSetting[0];
-  const secondLineSum = receivedBoardSetting[1] + receivedBoardSetting[2] + receivedBoardSetting[3];
-  console.log('secondLineSum',secondLineSum);
-  const thirdLineSum = receivedBoardSetting[4] + receivedBoardSetting[5] + receivedBoardSetting[6]+ receivedBoardSetting[7]+ receivedBoardSetting[8];
-
-  const fourthLineSum = receivedBoardSetting[9]+ receivedBoardSetting[10]+ receivedBoardSetting[11]+ receivedBoardSetting[12]+ receivedBoardSetting[13]+ receivedBoardSetting[14]+ receivedBoardSetting[15];
+  const firstLineSum = sumValuesOfLine(receivedBoardSetting, 1);
+  const secondLineSum = sumValuesOfLine(receivedBoardSetting, 3);
+  const thirdLineSum = sumValuesOfLine(receivedBoardSetting, 5);
+  const fourthLineSum = sumValuesOfLine(receivedBoardSetting, 7);
   
   const resultantValues = [];
+  resultantValues.push(firstLineSum, secondLineSum,thirdLineSum,fourthLineSum ); 
+    
+  // 3. CALCULATE DECOMPOSED
+  const decomposedValues = calculateDecomposed(resultantValues);
+  //console.log('valuesAfterMove',decomposedValues);
 
-  resultantValues.push(firstLineSum, secondLineSum,thirdLineSum,fourthLineSum );
-  console.log('resultantValues hasta aquí =>',resultantValues);
-
-  // DETECTADO UN ERROR AQUÍ!!
-  const valuesAfterMove = calculateDecomposed(resultantValues);
-  console.log('valuesAfterMove',valuesAfterMove);
+  // 4. CHOSE ROW TO ERASE
+  stickToErase(decomposedValues, receivedBoardSetting);
 
 
+/*
   // 3. COMPUTER DETECTS IF IT WINS
   //detectWinner(newBoardSetting)
 
-
+*/
 
 
 }

@@ -1,14 +1,9 @@
 const calculateDecomposed = (originalValues) => {
-
-  console.log('resultantArray al llegar a calculateDecomposed',originalValues);
-
   const arrayDecomposedValues = [[], [], []];
-  // console.log('arrayDecomposedValues al inicio',arrayDecomposedValues);
 
   const groupOfFours = [];
   const groupOfTwos = [];
   const groupOfOnes = [];
-
 
   function calculateGroups(fileValue) {
     const numberOfFours = Math.trunc(fileValue / 4);
@@ -23,25 +18,18 @@ const calculateDecomposed = (originalValues) => {
     groupOfOnes.push(numberOfOnes);
   }
 
-  function calculateAllLines(originalValues) {
-    calculateGroups(originalValues[0]);
-    calculateGroups(originalValues[1]);
-    calculateGroups(originalValues[2]);
-    calculateGroups(originalValues[3]);
+  for (let i = 0; i <= 3; i++) {
+    calculateGroups(originalValues[i]);
   }
 
-  function composeNewArrayOfValues(originalValues) {
-    calculateAllLines(originalValues);
-    arrayDecomposedValues[0].push(groupOfOnes);
-    arrayDecomposedValues[1].push(groupOfTwos);
-    arrayDecomposedValues[2].push(groupOfFours);
-  }
-  
-  composeNewArrayOfValues(originalValues);
+  arrayDecomposedValues[0].push(groupOfOnes);
+  arrayDecomposedValues[1].push(groupOfTwos);
+  arrayDecomposedValues[2].push(groupOfFours);
+
+  console.log('arrayDecomposedValues al final',arrayDecomposedValues);
   
   return arrayDecomposedValues;
-  // console.log('arrayDecomposedValues al final',arrayDecomposedValues);
-
+  
 };
 
 export default calculateDecomposed;

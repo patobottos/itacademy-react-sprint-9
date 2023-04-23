@@ -1,19 +1,19 @@
 import { ButtonContainer, PlayingBtn } from "./PlayingButtons.styled";
 import computerTurn from "../../gameLogic/computerTurn";
 
-const PlayingButtons = (boardSetting) => {
+const PlayingButtons = (newAllValues) => {
   return (
     <ButtonContainer>
       <PlayingBtn
         onClick={() => {
-          computerTurn(boardSetting);
+          console.log("ok, let's play a new game!");
         }}
       >
         NEW GAME
       </PlayingBtn>
       <PlayingBtn
         onClick={() => {
-          computerTurn(boardSetting);
+          computerTurn(newAllValues);
         }}
       >
         COMPUTER TURN

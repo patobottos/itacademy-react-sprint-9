@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export const GameboardStyled = styled.div`
-  font-size: 36px;
-  font-weight: 600;
   display: flex;
   flex-direction: column;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  margin: 30px auto;
+  font-size: 36px;
+  font-weight: 600;
+  margin: 20px auto;
   padding: 5px 0;
   max-width: 60vw;
   max-height: 60vh;
-
 
   .line1,
   .line3,
