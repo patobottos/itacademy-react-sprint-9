@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { GameboardStyled } from "./Gameboard.styled";
-import PlayingButtons from "../PlayingButtons/PlayingButtons";
 import { Stick } from "../Sticks/Sticks";
 import allValuesInitial from "../../gameLogic/allValuesInitial";
+import eraseSticks from "../../gameMoves/eraseSticks";
+import {ButtonContainer, PlayingBtn} from "../PlayingButtons/PlayingButtons.styled";
+import computerTurn from '../../gameLogic/computerTurn';
+
+const initialValues = allValuesInitial;
 
 const Gameboard = () => {
-  const [allValues, setAllvalues] = useState(allValuesInitial);
-  const nextValues = [...allValues];
+  const [allValues, setAllValues] = useState(allValuesInitial);
+  const nextValues = [...allValues];  
 
   useEffect(() => {
-    const initialValues = [...allValues];
+
     //console.log("allValues post borrado useEf", allValues);
     //console.log("nextValues post borrado useEf", nextValues);
   }, [allValues]);
 
   const eraseStick = (stickPosition) => {
-    if (allValues[stickPosition].stickValue === 1) {
-      const newValues = [...allValues];
-      //console.log('newValues antes del cambio',newValues);
-      newValues[stickPosition].stickValue = 0;
-      newValues[stickPosition].stickEnabled = false;
-      //console.log('newValues luego del cambio',newValues);
-      setAllvalues(newValues);
-      console.log("allValues post eraseStick", allValues);
-    } else {
-      setAllvalues([...allValues]);
-      console.log("allValues post eraseStick", allValues);
-    }
-  };
+    const resultErase = eraseSticks(stickPosition, allValues, nextValues);
+    console.log('resultErase',resultErase);
+    setAllValues(resultErase);
+  }
 
   return (
     <GameboardStyled>
@@ -56,7 +51,25 @@ const Gameboard = () => {
         <Stick stickValue={allValues[15].stickValue} eraseStick={() => eraseStick(15)} />
       </div>
 
-      <PlayingButtons props={allValues} />
+      <ButtonContainer>
+        <PlayingBtn
+          onClick={() => {
+            console.log("ok, let's play a new game!")
+            console.log('initialValues',initialValues);
+            // NO FUNCIONA! Me carga los valores cambiados, no los originales =( 
+            // setAllValues(initialValues);
+          }}
+        >
+          NEW GAME
+        </PlayingBtn>
+        <PlayingBtn
+          onClick={() => {
+            computerTurn(allValues);
+          }}
+        >
+          COMPUTER TURN
+        </PlayingBtn>
+      </ButtonContainer>
     </GameboardStyled>
   );
 };

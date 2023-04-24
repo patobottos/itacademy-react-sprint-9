@@ -1,6 +1,6 @@
 import chooseRandomLine from "./chooseRandomLine";
 
-const stickToErase = (decomposedValues, receivedBoardSetting) => {
+const sticksToErase = (decomposedValues, receivedBoardSetting) => {
   //console.log('decomposedValues inicio rowToErase',decomposedValues);
 
   const sumLine = (arr) => {
@@ -31,6 +31,8 @@ const stickToErase = (decomposedValues, receivedBoardSetting) => {
   findUnpaired();
   console.log('unpaired', unpaired);
 
+  const arraySticksToErase = [];
+
   if (unpaired[0] === true && unpaired[1] === false && unpaired[2] === false) {
     console.log('adelante con la escogida al azar');
     const lineIdToErase = chooseRandomLine(receivedBoardSetting);
@@ -39,10 +41,10 @@ const stickToErase = (decomposedValues, receivedBoardSetting) => {
       return (stick.stickEnabled === true && stick.lineId === lineIdToErase);
     })
 
-    console.log('stickToErase',stickToErase);
+    arraySticksToErase.push(stickToErase)
 
-    
+    return arraySticksToErase;  
   }
 };
 
-export default stickToErase;
+export default sticksToErase;

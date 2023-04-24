@@ -1,7 +1,7 @@
-const detectWinner = (receivedBoardSetting) => {
-   console.log('receivedBoardSetting en detectWinner', receivedBoardSetting);
+const detectWinner = (receivedValues) => {
+  //console.log('receivedValues en detectWinner', receivedValues);
 
-  const sticksSum = receivedBoardSetting.reduce((accumulator, {stickValue}) => {
+  const sticksSum = receivedValues.reduce((accumulator, {stickValue}) => {
     return accumulator + stickValue;
   },0);
   //console.log('sticksSum', sticksSum);
