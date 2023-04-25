@@ -1,15 +1,17 @@
-import './App.css';
-import Header from './Components/Header/Header';
-import Gameboard from './Components/Gameboard/Gameboard';
-import Footer from './Components/Footer/Footer';
-
+import "./App.css";
+import Header from "./Components/Header/Header";
+import Gameboard from "./Components/Gameboard/Gameboard";
+import Footer from "./Components/Footer/Footer";
+import Provider from "./application/provider";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Gameboard />
-      <Footer />
+      <Provider>
+        <Header />
+        <Gameboard />
+        <Footer />
+      </Provider>
     </div>
   );
 }

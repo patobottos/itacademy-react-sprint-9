@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useMyContext } from "../../application/provider";
 import { GameboardStyled } from "./Gameboard.styled";
 import { Stick } from "../Sticks/Sticks";
 import allValuesInitial from "../../gameLogic/allValuesInitial";
 import eraseSticks from "../../gameMoves/eraseSticks";
 import {ButtonContainer, PlayingBtn} from "../PlayingButtons/PlayingButtons.styled";
 import computerTurn from '../../gameLogic/computerTurn';
-
 const initialValues = allValuesInitial;
 
 const Gameboard = () => {
-  const [allValues, setAllValues] = useState(allValuesInitial);
-  const nextValues = [...allValues];  
+  //const [allValues, setAllValues] = useState(allValuesInitial);
+  const [allValues, setAllValues] = useMyContext(allValuesInitial);
+  console.log('allValues en Gameboard',allValues);
+  //const nextValues = [...allValues];
 
   useEffect(() => {
-
     //console.log("allValues post borrado useEf", allValues);
     //console.log("nextValues post borrado useEf", nextValues);
   }, [allValues]);
@@ -64,7 +65,7 @@ const Gameboard = () => {
         </PlayingBtn>
         <PlayingBtn
           onClick={() => {
-            computerTurn(allValues);
+            computerTurn(allValues, eraseStick);
           }}
         >
           COMPUTER TURN

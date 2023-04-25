@@ -4,7 +4,7 @@ import calculateDecomposed from "./calculateDecomposed";
 import sticksToErase from "./sticksToErase";
 import eraseSticks from "../gameMoves/eraseSticks";
 
-function computerTurn(receivedValues) {
+function computerTurn(receivedValues, eraseStick) {
  console.log('newAllValues al llegar a ComputerTurn',receivedValues);
 
 // TRANSFORMO OBJETO DE OBJETOS EN ARRAY DE OBJETOS. ESTO DEBERÍA MEJORARLO, POR AHORA LO DEJO ASÍ
@@ -41,6 +41,7 @@ function computerTurn(receivedValues) {
     console.log('stickPositionToErase',stickPositionToErase);
     //console.log('stickPositionToErase tipo',typeof stickPositionToErase);
     eraseSticks(stickPositionToErase,receivedValues,nextValues);
+    eraseStick(0);
   });
 
   console.log('receivedValues post erase',receivedValues);
@@ -48,9 +49,10 @@ function computerTurn(receivedValues) {
 
   // 6. PINTAMOS MOVIDA DEL ORDENADOR EN PANTALLA
 // IDEAS?
-
+  
 
 
 }
+
 
 export default computerTurn;
