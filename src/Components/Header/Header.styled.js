@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-  margin: 10px 0px;
+  margin: 0;
   padding: 5px 15px;
   border-bottom: 0.5px solid grey;
+  position: relative;
   display: flex;
 
   .title {
@@ -13,8 +14,13 @@ export const HeaderContainer = styled.div`
     font-weight: 800;
     letter-spacing: 0.1rem;
   }
+
+  .allowPopup {
+    cursor: pointer;
+  }
 `;
-/* Lato, Montserrat, Open Sans, Raleway, Roboto */ 
+
+/* Lato, Montserrat, Open Sans, Raleway, Roboto */
 
 export const ButtonContainer = styled.div`
   display: flex;
@@ -30,12 +36,11 @@ export const ButtonContainer = styled.div`
     cursor: pointer;
 
     :hover {
-    color: #9f9daf;
-      
-    /* offset-x | offset-y | blur-radius | spread-radius | color */
-    text-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
-  }
+      color: #9f9daf;
 
+      /* offset-x | offset-y | blur-radius | spread-radius | color */
+      text-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
+    }
   }
 `;
 

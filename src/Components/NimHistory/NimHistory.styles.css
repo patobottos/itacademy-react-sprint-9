@@ -1,0 +1,23 @@
+.italics {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.popup-video {
+  max-width: 320px;
+  
+}
+
+.video-footer {
+  margin: 0.3vh auto;
+  width: 300px; 
+  text-align: left;
+  line-height: 15px;
+  font-family: Raleway;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #2c394e;
+}

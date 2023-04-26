@@ -4,7 +4,7 @@ import calculateDecomposed from "./calculateDecomposed";
 import sticksToErase from "./sticksToErase";
 import eraseSticks from "../gameMoves/eraseSticks";
 
-function computerTurn(receivedValues, eraseStick) {
+function computerTurn(receivedValues) {
  console.log('newAllValues al llegar a ComputerTurn',receivedValues);
 
 // TRANSFORMO OBJETO DE OBJETOS EN ARRAY DE OBJETOS. ESTO DEBERÍA MEJORARLO, POR AHORA LO DEJO ASÍ
@@ -41,7 +41,6 @@ function computerTurn(receivedValues, eraseStick) {
     console.log('stickPositionToErase',stickPositionToErase);
     //console.log('stickPositionToErase tipo',typeof stickPositionToErase);
     eraseSticks(stickPositionToErase,receivedValues,nextValues);
-    eraseStick(0);
   });
 
   console.log('receivedValues post erase',receivedValues);
