@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <div>
       <HeaderContainer>
-        <p className="title allowPopup" onMouseEnter={handleOnMouseEnter}>NIM GAME</p>
+        <p className="title allowPopup" onMouseOver={handleOnMouseEnter}>NIM GAME</p>
         <ButtonContainer>
           <span>
             <FontAwesomeIcon className="icons" icon={faUser} />

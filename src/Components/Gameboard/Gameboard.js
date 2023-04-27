@@ -12,6 +12,9 @@ const Gameboard = () => {
   const [allValues, setAllValues] = useState(allValuesInitial);
   const nextValues = [...allValues];  
 
+  //const [player, setPlayer] = useState("user");
+  //console.log('player al inicio',player);
+
   useEffect(() => {
     //console.log("allValues post borrado useEf", allValues);
     //console.log("nextValues post borrado useEf", nextValues);
@@ -54,15 +57,17 @@ const Gameboard = () => {
         <PlayingBtn
           onClick={() => {
             console.log("ok, let's play a new game!")
-            console.log('initialValues',initialValues);
+            //console.log('initialValues',initialValues);
             // NO FUNCIONA! Me carga los valores cambiados, no los originales =( 
-            // setAllValues(initialValues);
+            //setAllValues(allValuesInitial);
           }}
         >
           NEW GAME
         </PlayingBtn>
+
         <PlayingBtn
           onClick={() => {
+            //setPlayer("computer"); NO FUNCIONA!
             computerTurn(allValues);
           }}
         >
