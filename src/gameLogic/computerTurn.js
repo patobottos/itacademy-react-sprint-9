@@ -11,6 +11,7 @@ function computerTurn(receivedValues) {
   //console.log("está jugando", playerAtCalculation);
 
   console.log("newAllValues al llegar a ComputerTurn", receivedValues);
+  console.log('tipo', typeof receivedValues);
 
   const nextValues = [...receivedValues];
   //console.log('nextValues al llegar a ComputerTurn',nextValues);
@@ -62,9 +63,8 @@ function computerTurn(receivedValues) {
     quantityToRemove = maxNumberOfSticks - 1;
   } else {
   // ELSE, WE REMOVE THE WHOLE LINE
-  quantityToRemove = maxNumberOfSticks
-  }
-   ? () :(quantityToRemove = maxNumberOfSticks) ;
+  quantityToRemove = maxNumberOfSticks;
+  };
 
 
   
@@ -98,6 +98,7 @@ function computerTurn(receivedValues) {
 
   // 7. CAMBIAMOS STATE DE JUGADOR
   //setPlayer("user");
+
 }
 
 export default computerTurn;

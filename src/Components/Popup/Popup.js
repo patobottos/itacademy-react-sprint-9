@@ -8,7 +8,9 @@ const Popup = ({visible, setVisible}) => {
     <PopupBackground visible={visible}>
       <PopupOverlay onClick={() => setVisible(false)}> 
         <PopupContentBox>
-          <PopupButton onClick={() => setVisible(false)}>X</PopupButton>
+          <PopupButton onClick={(e) => {
+            e.stopPropagation();
+            setVisible(false)}}>X</PopupButton>
           <PopupText>
             <NimHistory />
           </PopupText>

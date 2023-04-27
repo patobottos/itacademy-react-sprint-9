@@ -13,14 +13,13 @@ const Header = () => {
     return <newGame />;
     console.log("Clicking and waiting deletion!");
   };
-
-  const handleOnMouseEnter = () => {setPopupOpen(true)};
+  
   const handleClick = () => {setPopupOpen(false)};
 
   return (
     <div>
       <HeaderContainer>
-        <p className="title allowPopup" onMouseOver={handleOnMouseEnter}>NIM GAME</p>
+        <p className="title allowPopup" onClick={() => setPopupOpen(true)}>NIM GAME</p>
         <ButtonContainer>
           <span>
             <FontAwesomeIcon className="icons" icon={faUser} />

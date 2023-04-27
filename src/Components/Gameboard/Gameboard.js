@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { GameboardStyled } from "./Gameboard.styled";
 import { Stick } from "../Sticks/Sticks";
-import allValuesInitial from "../../gameLogic/allValuesInitial";
+import allValuesInitial from "../../gameLogic/allValuesInitial.json";
 import eraseSticks from "../../gameMoves/eraseSticks";
 import {ButtonContainer, PlayingBtn} from "../PlayingButtons/PlayingButtons.styled";
 import computerTurn from '../../gameLogic/computerTurn';
 
-const initialValues = allValuesInitial;
+//const initialValues = allValuesInitial;
 
 const Gameboard = () => {
-  const [allValues, setAllValues] = useState(allValuesInitial);
-  const nextValues = [...allValues];  
+  const [allValues, setAllValues] = useState(allValuesInitial.map(obj => obj));
+  const nextValues = [...allValues];
 
   //const [player, setPlayer] = useState("user");
   //console.log('player al inicio',player);
@@ -56,10 +56,11 @@ const Gameboard = () => {
       <ButtonContainer>
         <PlayingBtn
           onClick={() => {
-            console.log("ok, let's play a new game!")
-            //console.log('initialValues',initialValues);
+            console.log("ok, let's play a new game!");
+            console.log('initialValues en click newgame',allValuesInitial);
             // NO FUNCIONA! Me carga los valores cambiados, no los originales =( 
-            //setAllValues(allValuesInitial);
+            setAllValues(allValuesInitial);
+            console.log('initialValues post click newgame',allValuesInitial);
           }}
         >
           NEW GAME
@@ -68,7 +69,7 @@ const Gameboard = () => {
         <PlayingBtn
           onClick={() => {
             //setPlayer("computer"); NO FUNCIONA!
-            computerTurn(allValues);
+            setAllValues(computerTurn(allValues));
           }}
         >
           COMPUTER TURN
