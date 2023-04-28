@@ -1,7 +1,10 @@
 import chooseRandomLine from "./chooseRandomLine";
 
-const sticksToErase = (decomposedValues, receivedBoardSetting) => {
+const sticksToErase = (decomposedValues, receivedBoardSetting, sticksPerLine) => {
   //console.log('decomposedValues inicio rowToErase',decomposedValues);
+  
+  const boardSettingInputToErase = [...receivedBoardSetting];
+  //console.log('boardSettingInputToErase al inicio f erase',boardSettingInputToErase);
 
   const sumLine = (arr) => {
     return arr.reduce((accumulator, currentValue) => {
@@ -31,7 +34,76 @@ const sticksToErase = (decomposedValues, receivedBoardSetting) => {
   findUnpaired();
   console.log("unpaired", unpaired);
 
+  // ARE WE ALREADY IN A WINNING POSITION (NIM SUM = 0 ?)
+  const findWinningPosition = unpaired.reduce((accumulator, currentValue) => accumulator * currentValue);
+  findWinningPosition === 1 ? console.log('Winning position') : console.log("Keep searching") //...AND EXECUTE ;
+
   const arraySticksToErase = [];
+
+  // FIND STICKS TO ERASE
+  const findSticksToErase = () => {
+    // WE FILTER ONLY VALID STICKS STILL PLAYING
+    const enabledSticks = receivedBoardSetting.filter(validSticks => validSticks.stickValue != 0);
+
+    //WE FIND LINES WITH STICKS PLAYING
+
+    const availableLines = enabledSticks
+    .map((item) => item.lineId)
+    .filter((value, index, currentValue) => currentValue.indexOf(value) === index);
+    //console.log('availableLines', availableLines);
+
+
+ /* HASTA AQUÍ LLEGUÉ */
+
+
+/*
+    
+    if (sticksPerLine[0] != 0) {
+      availableLines.push(1)
+    } else if (sticksPerLine[1] != 0) {
+      availableLines.push(3)
+    } else if (sticksPerLine[1] != 0) {
+      availableLines.push(3)
+      else if (sticksPerLine[1] != 0) {
+        availableLines.push(3)
+
+    sticksPerLine.map(element => {
+      element != 0 ? availableLines.push((indexOf(element) + 1)) : availableLines.push(false)
+    });
+       */
+
+    // WE START TRYING
+   
+
+    console.log('available sticks',enabledSticks);
+    console.log('availableLines',availableLines);
+
+ 
+
+  }
+
+findSticksToErase();
+  
+  /*
+1) Busco la línea con más palitos: idLine
+2) Borro 1 palito, el último con value != 0 
+3) Pruebo si findWinningPosition === 1 ? 
+
+3A) Si sí, subo el id del palito en la arraySticksToErase...
+4A) Actualizo valor en la array boardSettingInputToErase => encontrar esos ids, y cambiar valor del palito a 0 y valor del enabled a false
+5A) FIN del turno de la computadora. Pasar boardSettingInputToErase al Gameboard. Actualizar tablero en Gameboard. Cambiar state a setHumanPlayer(true)
+
+3B) Si no, subo id palito en arraySticksToErase, con valor del palito a 0 y valor del enabled a false
+4B) y sigo buscando, siempre que la misma línea
+5B) Si llego al final de la línea y no hay findWinningPosition === 1,arraySticksToErase = [null]
+6B) Aplico búsqueda en la línea siguiente. aplico 3b
+
+
+
+
+  */
+
+/* METODO 24/4/23 => NO HA FUNCIONADO
 
   //CASE 1: ALL VALUES PAIRED...
   if (
@@ -79,6 +151,10 @@ const sticksToErase = (decomposedValues, receivedBoardSetting) => {
     //ERASE FOUR
 
   }
+
+*/
+
+
 };
 
 export default sticksToErase;

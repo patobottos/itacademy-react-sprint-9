@@ -34,6 +34,7 @@ function computerTurn(receivedValues) {
   );
   console.log("Sicks per line", sticksPerLine);
 
+  /* 
   // 2.A CREATE OBJECT OF STICKS TO ERASE (number of sticks, lineId)
   const sticksToEraseObj = {
     "lineId": null,
@@ -76,15 +77,19 @@ function computerTurn(receivedValues) {
   sticksToEraseObj["lineId"] = maxIndex;
   sticksToEraseObj["stickQuantity"] = quantityToRemove;
 
+*/ 
+
 
   // 3. CALCULATE DECOMPOSED
   const decomposedValues = calculateDecomposed(sticksPerLine);
   //console.log('valuesAfterMove',decomposedValues);
 
   // 4. CHOSE STICKS TO ERASE
-  const arraySticksToErase = sticksToErase(decomposedValues, receivedValues);
+  const arraySticksToErase = sticksToErase(decomposedValues, receivedValues, sticksPerLine);
   console.log("receivedValues antes de borrado", receivedValues);
 
+
+/*   
   // 5. COMPUTER MOVE
   arraySticksToErase.map((e) => {
     const stickPositionToErase = e - 1;
@@ -102,6 +107,8 @@ function computerTurn(receivedValues) {
   // 7. CAMBIAMOS STATE DE JUGADOR
   //setPlayer("user");
 
+
+*/  
 }
 
 export default computerTurn;
