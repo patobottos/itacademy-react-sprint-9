@@ -66,6 +66,9 @@ function computerTurn(receivedValues) {
   quantityToRemove = maxNumberOfSticks;
   };
 
+  // 2.F DETERMINE LINE OF STICKS TO ERASE FROM
+  
+
 
   
   

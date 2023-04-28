@@ -12,16 +12,14 @@ export const GameboardStyled = styled.div`
   padding: 5px 0;
   max-width: 60vw;
   max-height: 60vh;
-
-  .line1,
-  .line3,
-  .line5,
-  .line7 {
-    margin-top: 5%;
-    display: flex;
-    align-items: center;
-  }
 `;
+
+export const StickLine = styled.div`
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+`;
+
 
 export const Button = styled.button`
   background-color: skyblue;

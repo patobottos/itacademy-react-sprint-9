@@ -13,6 +13,14 @@ export const HeaderContainer = styled.div`
     font-family: Raleway, sans-serif;
     font-weight: 800;
     letter-spacing: 0.1rem;
+
+    :hover {
+      :hover {
+        color: #9f9daf;
+        /* offset-x | offset-y | blur-radius | spread-radius | color */
+        text-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 
   .allowPopup {
@@ -37,7 +45,6 @@ export const ButtonContainer = styled.div`
 
     :hover {
       color: #9f9daf;
-
       /* offset-x | offset-y | blur-radius | spread-radius | color */
       text-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
     }
