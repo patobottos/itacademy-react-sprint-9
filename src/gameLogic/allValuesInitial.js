@@ -114,10 +114,9 @@ export const allValuesInitial = [
   },
 ];
 
-/* 
-export const allValuesInitial2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+/* ALTERNATIVE ARRAY OF VALUES FOR THE GAME
 
-export const allValuesInitial3 = [
+export const allValuesInitial2 = [
   {
     name: "firstLine",
     enabled: true,
@@ -223,6 +222,7 @@ export const allValuesInitial3 = [
     ]
   }
 ];
+
 */
 
 export default allValuesInitial;

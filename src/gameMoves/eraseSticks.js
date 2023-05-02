@@ -1,4 +1,4 @@
-const eraseSticks = (stickPosition, allValues, nextValues) => {
+const eraseSticks = (stickPosition, allValues) => {
   //console.log('stickPosition at erase',stickPosition);
   //console.log('allValues at erase',allValues);
   //console.log('nextValues at erase',nextValues);
@@ -11,9 +11,14 @@ const eraseSticks = (stickPosition, allValues, nextValues) => {
       alert("In each move, you can remove any number of matches but only from one row.");
       return allValues;
     } else {
-      nextValues[stickPosition].stickValue = 0;
-      nextValues[stickPosition].stickEnabled = false;
-      return nextValues;
+      const modifiedStick = {
+        ...allValues[stickPosition],
+        stickValue: 0,
+        stickEnabled: false,
+      }
+      const newValues = [...allValues];
+      newValues[stickPosition]=modifiedStick;
+      return newValues;
     }
   }
 };

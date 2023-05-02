@@ -26,7 +26,7 @@ const calculateDecomposed = (originalValues) => {
   arrayDecomposedValues[1].push(groupOfTwos);
   arrayDecomposedValues[2].push(groupOfFours);
 
-  console.log('arrayDecomposedValues al final',arrayDecomposedValues);
+  //console.log('arrayDecomposedValues al final',arrayDecomposedValues);
   
   return arrayDecomposedValues;
   

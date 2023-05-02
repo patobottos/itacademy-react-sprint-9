@@ -1,160 +1,143 @@
-import chooseRandomLine from "./chooseRandomLine";
+import turnValueToZero from "./turnValueToZero";
+import checkValidMove from "./checkValidMove";
+import nothingToBeDone from "./nothingToBeDone";
 
-const sticksToErase = (decomposedValues, receivedBoardSetting, sticksPerLine) => {
-  //console.log('decomposedValues inicio rowToErase',decomposedValues);
-  
-  const boardSettingInputToErase = [...receivedBoardSetting];
-  //console.log('boardSettingInputToErase al inicio f erase',boardSettingInputToErase);
+const sticksToErase = (receivedValues) => {
 
-  const sumLine = (arr) => {
-    return arr.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue;
-    });
-  };
+  const boardSettingInputToErase = [...receivedValues];
+  let arraySticksToErase = [];
 
-  const onesSum = sumLine(sumLine(decomposedValues[0]));
-  const twosSum = sumLine(sumLine(decomposedValues[1]));
-  const foursSum = sumLine(sumLine(decomposedValues[2]));
-  const onesTwosFours = [];
+  // WE FILTER ONLY VALID STICKS STILL PLAYING
+  const enabledSticks = boardSettingInputToErase.filter(
+    (validSticks) => validSticks.stickValue !== 0
+  );
 
-  console.log("onesTwosFours tipo", typeof onesTwosFours);
+  // WE ERASE STICKS AND SEE IF WE HAVE A WINNING POSITION
+  // SO, WE CREATE 4 ARRAYS WITH STICKS TO TRY WITH
+  const sticksToTryLineOne = enabledSticks.filter((item) => item.lineId === 1);
+  const sticksToTryLineThree = enabledSticks.filter((item) => item.lineId === 3);
+  const sticksToTryLineFive = enabledSticks.filter((item) => item.lineId === 5);
+  const sticksToTryLineSeven = enabledSticks.filter((item) => item.lineId === 7);
+  // console.log("sticksToTryLineOne", sticksToTryLineOne);
+  // console.log("sticksToTryLineThree", sticksToTryLineThree);
+  // console.log("sticksToTryLineFive", sticksToTryLineFive);
+  // console.log("sticksToTryLineSeven", sticksToTryLineSeven);
 
-  onesTwosFours.push(onesSum, twosSum, foursSum);
-  console.log("onesTwosFours", onesTwosFours);
+  const firstBoardSettingInputToErase = [...boardSettingInputToErase];
+  const secondBoardSettingInputToErase = [...boardSettingInputToErase];
+  const thirdBoardSettingInputToErase = [...boardSettingInputToErase];
+  const fourthBoardSettingInputToErase = [...boardSettingInputToErase];
 
-  let unpaired = [];
+  // WE FIND A NIMSUM = 0 SOLUTION DELETING STICKS
+  // WE BEGIN WITH STICK IN LINE 1
+  if (sticksToTryLineOne.length > 0) {
 
-  //FIND UNPAIRED GROUP OF STICKS
-  const findUnpaired = () => {
-    unpaired = onesTwosFours.map((number) => {
-      return number % 2 !== 0;
-    });
-  };
+    console.log("Testing with line 1...");
+    const modifiedStick = turnValueToZero(sticksToTryLineOne);
+    //console.log('modifiedStick',modifiedStick); // ==> OK!
 
-  findUnpaired();
-  console.log("unpaired", unpaired);
+    firstBoardSettingInputToErase[modifiedStick.stickId - 1] = modifiedStick;
+    //console.log("firstBoardSettingInputToErase", firstBoardSettingInputToErase);
 
-  // ARE WE ALREADY IN A WINNING POSITION (NIM SUM = 0 ?)
-  const findWinningPosition = unpaired.reduce((accumulator, currentValue) => accumulator * currentValue);
-  findWinningPosition === 1 ? console.log('Winning position') : console.log("Keep searching") //...AND EXECUTE ;
+    const checkIfValidMove = checkValidMove(firstBoardSettingInputToErase);
+    //console.log("checkIfValidMove in Line1", checkIfValidMove);
 
-  const arraySticksToErase = [];
-
-  // FIND STICKS TO ERASE
-  const findSticksToErase = () => {
-    // WE FILTER ONLY VALID STICKS STILL PLAYING
-    const enabledSticks = receivedBoardSetting.filter(validSticks => validSticks.stickValue != 0);
-
-    //WE FIND LINES WITH STICKS PLAYING
-
-    const availableLines = enabledSticks
-    .map((item) => item.lineId)
-    .filter((value, index, currentValue) => currentValue.indexOf(value) === index);
-    //console.log('availableLines', availableLines);
-
-
- /* HASTA AQUÍ LLEGUÉ */
-
-
-/*
-    
-    if (sticksPerLine[0] != 0) {
-      availableLines.push(1)
-    } else if (sticksPerLine[1] != 0) {
-      availableLines.push(3)
-    } else if (sticksPerLine[1] != 0) {
-      availableLines.push(3)
-      else if (sticksPerLine[1] != 0) {
-        availableLines.push(3)
-
-    sticksPerLine.map(element => {
-      element != 0 ? availableLines.push((indexOf(element) + 1)) : availableLines.push(false)
-    });
-       */
-
-    // WE START TRYING
-   
-
-    console.log('available sticks',enabledSticks);
-    console.log('availableLines',availableLines);
-
- 
-
+    if (checkIfValidMove === true) {
+      console.log("We have a winning move!=> ", firstBoardSettingInputToErase);
+      arraySticksToErase = [...firstBoardSettingInputToErase];
+    } else {
+      console.log("No valid moves in line 1...");
+    }
   }
 
-findSticksToErase();
-  
-  /*
-1) Busco la línea con más palitos: idLine
-2) Borro 1 palito, el último con value != 0 
-3) Pruebo si findWinningPosition === 1 ? 
+  // WE FOLLOW WITH STICKS IN LINE 3
+  if (arraySticksToErase.length < 1 && sticksToTryLineThree.length > 0) {
+    console.log("Testing with line 3...");
 
-3A) Si sí, subo el id del palito en la arraySticksToErase...
-4A) Actualizo valor en la array boardSettingInputToErase => encontrar esos ids, y cambiar valor del palito a 0 y valor del enabled a false
-5A) FIN del turno de la computadora. Pasar boardSettingInputToErase al Gameboard. Actualizar tablero en Gameboard. Cambiar state a setHumanPlayer(true)
+    for (let i = sticksToTryLineThree.length - 1; i >= 0; i--) {
+      const modifiedStick = turnValueToZero(sticksToTryLineThree);
+      //console.log('modifiedStick',modifiedStick);
 
-3B) Si no, subo id palito en arraySticksToErase, con valor del palito a 0 y valor del enabled a false
-4B) y sigo buscando, siempre que la misma línea
-5B) Si llego al final de la línea y no hay findWinningPosition === 1,arraySticksToErase = [null]
-6B) Aplico búsqueda en la línea siguiente. aplico 3b
+      secondBoardSettingInputToErase[modifiedStick.stickId - 1] = modifiedStick;
+      //console.log("secondBoardSettingInputToErase",secondBoardSettingInputToErase);
 
+      const checkIfValidMove = checkValidMove(secondBoardSettingInputToErase);
+     //console.log("checkIfValidMove in Line3", checkIfValidMove);
 
-
-
-  */
-
-/* METODO 24/4/23 => NO HA FUNCIONADO
-
-  //CASE 1: ALL VALUES PAIRED...
-  if (
-    unpaired[0] === false && 
-    unpaired[1] === false && 
-    unpaired[2] === false
-  ) {
-    console.log("CASE 1: nim sum = 0");
-    const lineIdToErase = chooseRandomLine(receivedBoardSetting);
-    const stickToErase = receivedBoardSetting.findIndex((stick) => {
-      return stick.stickEnabled === true && stick.lineId === lineIdToErase;
-    });
-    arraySticksToErase.push(stickToErase);
-    return arraySticksToErase;
-  } else if (
-    //CASE 2: ONEs UNPAIRED, TWOs PAIRED, FOURs PAIRED.
-    unpaired[0] === true &&
-    unpaired[1] === false &&
-    unpaired[2] === false
-  ) {
-    console.log("CASE 2: 1s unpaired, 2s and 4s OK");;
-    const lineIdToErase = chooseRandomLine(receivedBoardSetting);
-
-    const stickToErase = receivedBoardSetting.findIndex((stick) => {
-      return stick.stickEnabled === true && stick.lineId === lineIdToErase;
-    });
-
-    arraySticksToErase.push(stickToErase);
-
-    return arraySticksToErase;
-  } else if (
-    //CASE 3: ONEs PAIRED, TWOs UNPAIRED, FOURs PAIRED.
-    unpaired[0] === false &&
-    unpaired[1] === true &&
-    unpaired[2] === false
-  ) {
-    //ERASE TWO 
-
-  }  else if (
-    //CASE 4: ONEs PAIRED, TWOs PAIRED, FOURs UNPAIRED.
-    unpaired[0] === false &&
-    unpaired[1] === false &&
-    unpaired[2] === true
-  ) {
-    //ERASE FOUR
-
+      if (checkIfValidMove) {
+        console.log("We have a winning move!=> ",secondBoardSettingInputToErase);
+        arraySticksToErase = [...secondBoardSettingInputToErase];
+        break;
+      } else {
+        sticksToTryLineThree.pop();
+        //console.log("deleting last stick");
+        //console.log("sticksToTryLineThree", sticksToTryLineThree);
+      }
+    }
   }
 
-*/
+  // WE FOLLOW WITH STICKS IN LINE 5
+  if (arraySticksToErase.length < 1 && sticksToTryLineFive.length > 0) {
+    console.log("No valid moves in line 3");
+    console.log("Testing with line 5...");
 
+    for (let i = sticksToTryLineFive.length - 1; i >= 0; i--) {
+      const modifiedStick = turnValueToZero(sticksToTryLineFive);
+      //console.log('modifiedStick',modifiedStick);
 
+      thirdBoardSettingInputToErase[modifiedStick.stickId - 1] = modifiedStick;
+
+      const checkIfValidMove = checkValidMove(thirdBoardSettingInputToErase);
+      console.log("checkIfValidMove in Line5", checkIfValidMove);
+
+      if (checkIfValidMove) {
+        console.log("We have a winning move!=> ",thirdBoardSettingInputToErase);
+        arraySticksToErase = [...thirdBoardSettingInputToErase];
+        break;
+      } else {
+        sticksToTryLineFive.pop();
+        //console.log("deleting last stick");
+        //console.log("sticksToTryLineFive", sticksToTryLineFive);
+      }
+    }
+  }
+
+  // WE FOLLOW WITH STICKS IN LINE 7
+  if (arraySticksToErase.length < 1 && sticksToTryLineSeven.length > 0) {
+    console.log("No valid moves in line 5");
+    console.log("Testing with line 7...");
+
+    for (let i = sticksToTryLineSeven.length - 1; i >= 0; i--) {
+      const modifiedStick = turnValueToZero(sticksToTryLineSeven);
+      //console.log('modifiedStick',modifiedStick);
+
+      fourthBoardSettingInputToErase[modifiedStick.stickId - 1] = modifiedStick;
+      //console.log("fourthBoardSettingInputToErase",fourthBoardSettingInputToErase);
+
+      const checkIfValidMove = checkValidMove(fourthBoardSettingInputToErase);
+      //console.log("checkIfValidMove in Line7", checkIfValidMove);
+
+      if (checkIfValidMove) {
+        console.log("eureka!");
+        arraySticksToErase.push(fourthBoardSettingInputToErase);
+        break;
+      } else {
+        sticksToTryLineSeven.pop();
+        //console.log("deleting last stick");
+        //console.log("sticksToTryLineThree", sticksToTryLineSeven);
+      }
+    }
+  }
+
+  if (arraySticksToErase.length > 0) {
+    //console.log("arraySticksToErase DEF", arraySticksToErase);
+    return arraySticksToErase;
+  } else {
+    console.log("Nothing to be done, just pick a random stick");
+    arraySticksToErase = nothingToBeDone(boardSettingInputToErase);
+    //console.log("arraySticksToErase DEF", arraySticksToErase);
+    return arraySticksToErase;
+  }
 };
 
 export default sticksToErase;
