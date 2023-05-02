@@ -25,8 +25,7 @@ function computerTurn(allValues, setAllValues) {
   // 5. WE PAINT THE NEW KEYBOARD SETTING
   setAllValues(arraySticksToErase);
 
-
-  // 5. CHANGE STATE OF PLAYER
+  // 6. CHANGE STATE OF PLAYER... HERE?
   //setPlayer("user");
 
 }
