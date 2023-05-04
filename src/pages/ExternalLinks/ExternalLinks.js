@@ -23,13 +23,11 @@ const ExternalLinks = () => {
               rel="noreferrer"
               href="https://es.goobix.com/juegos-en-linea/nim/"
             >
-              <img src={picture2} />
+              <img src={picture2} alt="Goobix" />
             </a>
             <ProjectTitle className="project-title">Goobix</ProjectTitle>
             <ProjectDescription>
-              You play against the computer. The players alternate in their
-              plays. A move consists of removing the pieces of a single file;
-              the player making the move decides the number of pieces removed.
+              You play against the computer. In your turn, you may only remove pieces of a single pile, the number of pieces you decide. The player who removes the last piece is the winner.
             </ProjectDescription>
           </ProjectContainer>
         </li>
@@ -40,7 +38,7 @@ const ExternalLinks = () => {
               rel="noreferrer"
               href="https://www.archimedes-lab.org/game_nim/play_nim_game.html"
             >
-              <img src={picture3} />
+              <img src={picture3} alt="Archimedes Lab" />
             </a>
             <ProjectTitle className="project-title">
               Archimedes' Lab Nim Game
@@ -58,7 +56,7 @@ const ExternalLinks = () => {
               rel="noreferrer"
               href="https://education.jlab.org/nim/s_gamepage.html"
             >
-              <img src={picture1} />
+              <img src={picture1} alt="J Lab" />
             </a>
             <ProjectTitle className="project-title">
               The Nim Number Game
@@ -69,7 +67,6 @@ const ExternalLinks = () => {
             </ProjectDescription>
           </ProjectContainer>
         </li>
-
         <li>
           <ProjectContainer>
             <a
@@ -77,7 +74,7 @@ const ExternalLinks = () => {
               rel="noreferrer"
               href="https://www.crazygames.com/game/nim-game"
             >
-              <img src={picture4} />
+              <img src={picture4} alt="Crazy Games" />
             </a>
             <ProjectTitle className="project-title">
               Crazy Games Nim for kids
@@ -93,9 +90,9 @@ const ExternalLinks = () => {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://es.goobix.com/juegos-en-linea/nim/"
+              href="https://www.transum.org/Software/Nim/"
             >
-              <img src={picture5} />
+              <img src={picture5} alt="Transum" />
             </a>
             <ProjectTitle className="project-title">
               Transum Nim Game for kids
@@ -109,7 +106,7 @@ const ExternalLinks = () => {
         <li>
           <ProjectContainer>
             <a target="_blank" rel="noreferrer" href="http://benpyle.com/nim/">
-              <img src={picture6} />
+              <img src={picture6} alt="Ben Pyle" />
             </a>
             <ProjectTitle className="project-title">
               Ben Pyle's Nim

@@ -1,43 +1,54 @@
-import React, { useEffect, useState, useRef } from "react";
-import { GameboardStyled, StickLine } from "./Gameboard.styled";
+import React, { useEffect, useState } from "react";
+import { GameboardContainer, StickLine } from "./Gameboard.styled";
 import { Stick } from "../Sticks/Sticks";
 import allValuesInitial from "../../gameLogic/allValuesInitial";
 import eraseSticks from "../../gameMoves/eraseSticks";
-import {
-  ButtonContainer,
-  PlayingBtn,
-} from "../PlayingButtons/PlayingButtons.styled";
-import computerTurn from "../../gameLogic/computerTurn";
-
-//const initialValues = allValuesInitial;
+import { ButtonContainer, PlayingBtn } from "../PlayingButtons/PlayingButtons.styled";
+import detectWinner from "../../gameLogic/detectWinner";
+import calculateSticksPerLine from "../../gameLogic/calculateSticksPerLine";
+import sticksToErase from "../../gameLogic/sticksToErase";
 
 const Gameboard = () => {
   const [allValues, setAllValues] = useState(allValuesInitial);
-
   const gameboardSetting = [...allValues];
-
   const [humanPlayer, setHumanPlayer] = useState(true);
-  //console.log('humanPlayer al inicio human = ',humanPlayer);
-
-  const noInitialRender = useRef(false);
+  const [isFirstStep, setIsFirstStep] = useState(true);
 
   useEffect(() => {
-    if (noInitialRender.current) {
-      computerTurn(allValues, setAllValues);
-      } else {
-      noInitialRender.current = true;
+    if (isFirstStep) {
+      setIsFirstStep(false);
+    } else {
+      if (!humanPlayer) {
+        const receivedValues = [...allValues];
+
+        // 2. WE DETECT IF THE USER IS A WINNER
+        detectWinner(receivedValues);
+
+        // 3. CREATE ARRAY OF NUMBER OF STICKS IN EACH LINE
+        const sticksPerLine = calculateSticksPerLine(receivedValues);
+        console.log("sticksPerLine", sticksPerLine);
+
+        // 4. COMPUTER CHOSES STICK OR STICKS TO ERASE
+        const arraySticksToErase = sticksToErase(receivedValues);
+        console.log("arraySticksToErase en ComputerTurn", arraySticksToErase);
+
+        // 5. WE PAINT THE NEW KEYBOARD SETTING
+        setAllValues(arraySticksToErase);
+
+        // 6. COMPUTER PASS THE TURN TO HUMAN PLAYER
+        setHumanPlayer(true);
+      }
     }
   }, [humanPlayer]);
 
   const eraseStick = (stickPosition) => {
-    //console.log(stickPosition);
     const resultErase = eraseSticks(stickPosition, gameboardSetting);
     //console.log("resultErase", resultErase);
     setAllValues(resultErase);
   };
 
   return (
-    <GameboardStyled>
+    <GameboardContainer>
       <StickLine className="line1">
         <Stick
           stickValue={gameboardSetting[0].stickValue}
@@ -122,13 +133,11 @@ const Gameboard = () => {
           NEW GAME
         </PlayingBtn>
 
-        <PlayingBtn
-          onClick={() => setHumanPlayer(false)}
-        >
+        <PlayingBtn onClick={() => setHumanPlayer(false)}>
           COMPUTER TURN
         </PlayingBtn>
       </ButtonContainer>
-    </GameboardStyled>
+    </GameboardContainer>
   );
 };
 

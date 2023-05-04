@@ -1,8 +1,14 @@
+// DEPRECATED FILE
+
+
+
+
+
 import detectWinner from "./detectWinner";
 import calculateSticksPerLine from "./calculateSticksPerLine";
 import sticksToErase from "./sticksToErase";
 
-function computerTurn(allValues, setAllValues) {
+function computerTurn(allValues, setAllValues, humanPlayer, setHumanPlayer) {
 
   // 1. WE SET THE PLAYER TO COMPUTER  ==> NO ESTÁ FUNCIONANDO
   //const playerAtCalculation = player;
@@ -14,7 +20,7 @@ function computerTurn(allValues, setAllValues) {
   // 2. WE DETECT IF THE USER IS A WINNER
   detectWinner(receivedValues);
 
-  // 3. CREATE ARRAY OF STICK QUANTITY IN EACH LINE
+  // 3. CREATE ARRAY OF NUMBER OF STICKS IN EACH LINE
   const sticksPerLine = calculateSticksPerLine(receivedValues);
   console.log('sticksPerLine',sticksPerLine);
 
@@ -25,8 +31,8 @@ function computerTurn(allValues, setAllValues) {
   // 5. WE PAINT THE NEW KEYBOARD SETTING
   setAllValues(arraySticksToErase);
 
-  // 6. CHANGE STATE OF PLAYER... HERE?
-  //setPlayer("user");
+  // 6. CHANGE STATE OF PLAYER... HERE? CUANDO LO PONGO NO ME FUNCIONA...
+  setHumanPlayer(!humanPlayer);
 
 }
 

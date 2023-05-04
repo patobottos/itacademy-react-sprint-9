@@ -88,7 +88,7 @@ const sticksToErase = (receivedValues) => {
       thirdBoardSettingInputToErase[modifiedStick.stickId - 1] = modifiedStick;
 
       const checkIfValidMove = checkValidMove(thirdBoardSettingInputToErase);
-      console.log("checkIfValidMove in Line5", checkIfValidMove);
+      //console.log("checkIfValidMove in Line5", checkIfValidMove);
 
       if (checkIfValidMove) {
         console.log("We have a winning move!=> ",thirdBoardSettingInputToErase);
@@ -119,7 +119,7 @@ const sticksToErase = (receivedValues) => {
 
       if (checkIfValidMove) {
         console.log("eureka!");
-        arraySticksToErase.push(fourthBoardSettingInputToErase);
+        arraySticksToErase = [...fourthBoardSettingInputToErase];
         break;
       } else {
         sticksToTryLineSeven.pop();

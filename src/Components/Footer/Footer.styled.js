@@ -9,5 +9,5 @@ export const FooterStyled = styled.div`
   font-family: Roboto, Inter, Lato, Raleway, Montserrat, "Open Sans", sans-serif;
   font-weight: 300;
   font-size: 0.8rem;
-  letter-spacing: 0.03rem;
+  letter-spacing: 0.06rem;
 `

@@ -3,7 +3,7 @@ import { FooterStyled } from "./Footer.styled";
 const Footer = () => {
   return (
     <FooterStyled>
-      <p>Footer | 2023</p>
+      <p>This is a footer | 2023</p>
     </FooterStyled>
   );
 };

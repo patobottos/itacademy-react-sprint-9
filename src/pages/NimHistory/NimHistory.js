@@ -1,5 +1,4 @@
 import { MainContainer } from "./NimHistory.styled";
-import MarienbadVideo from "./MarienbadVideo";
 
 const NimHistory = () => {
   return (
@@ -24,7 +23,7 @@ const NimHistory = () => {
             On each turn, a player must remove at least one object, and may
             remove any number of objects provided they all come from the same
             pile. Depending on the version being played, the goal of the game is
-            either to avoid taking the last object or to take the last object (a{" "}
+            either to take the last object or to avoid taking it (a{" "}
             <span className="italics">misère</span> game). The name and the
             complete theory of the game were invented by the Harvard University
             professor{" "}

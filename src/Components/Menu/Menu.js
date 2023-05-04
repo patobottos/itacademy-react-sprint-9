@@ -5,7 +5,7 @@ import {
   MenuText,
   MenuButton,
 } from "./Menu.styled";
-import { Link } from "react-router-dom";
+import { MyLink } from "../../styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRankingStar,
@@ -42,7 +42,7 @@ const Menu = ({ visible, setVisible }) => {
                   </a>
                 </li>
                 <li className="nimHistory">
-                  <Link to="/history/" style={{ textDecoration: "none" }}>
+                  <MyLink to="/history/" style={{ textDecoration: "none" }}>
                     <a>
                       <span>
                         <FontAwesomeIcon
@@ -53,11 +53,11 @@ const Menu = ({ visible, setVisible }) => {
                       </span>
                       NIM HISTORY
                     </a>
-                  </Link>
+                  </MyLink>
                 </li>
 
                 <li className="externalLinks">
-                  <Link
+                  <MyLink
                     to="/external-links/"
                     style={{ textDecoration: "none" }}
                   >
@@ -71,7 +71,7 @@ const Menu = ({ visible, setVisible }) => {
                       </span>
                       OTHER LINKS
                     </a>
-                  </Link>
+                  </MyLink>
                 </li>
               </ul>
             </div>

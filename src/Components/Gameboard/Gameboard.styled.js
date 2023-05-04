@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const GameboardStyled = styled.div`
+export const GameboardContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -8,18 +8,17 @@ export const GameboardStyled = styled.div`
   align-items: center;
   font-size: 36px;
   font-weight: 600;
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 5px 0;
-  max-width: 60vw;
-  max-height: 60vh;
+  min-width: 320px;
+  height: 50vh;
 `;
 
 export const StickLine = styled.div`
-  margin-top: 5%;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
 `;
-
 
 export const Button = styled.button`
   background-color: skyblue;
