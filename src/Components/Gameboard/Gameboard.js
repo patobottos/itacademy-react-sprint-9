@@ -136,6 +136,9 @@ const Gameboard = () => {
         <PlayingBtn onClick={() => setHumanPlayer(false)}>
           COMPUTER TURN
         </PlayingBtn>
+        <PlayingBtn onClick={() => {return (7)}}>
+          FIREBASE
+        </PlayingBtn>
       </ButtonContainer>
     </GameboardContainer>
   );

@@ -42,7 +42,7 @@ const Menu = ({ visible, setVisible }) => {
                   </a>
                 </li>
                 <li className="nimHistory">
-                  <MyLink to="/history/" style={{ textDecoration: "none" }}>
+                  <MyLink to="/history/">
                     <a>
                       <span>
                         <FontAwesomeIcon
@@ -59,7 +59,6 @@ const Menu = ({ visible, setVisible }) => {
                 <li className="externalLinks">
                   <MyLink
                     to="/external-links/"
-                    style={{ textDecoration: "none" }}
                   >
                     <a>
                       <span>

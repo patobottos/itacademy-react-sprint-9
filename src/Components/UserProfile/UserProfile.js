@@ -5,6 +5,7 @@ import {
   UserProfileText,
   UserProfileButton,
 } from "./UserProfile.styled";
+import { MyLink } from "../../styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenNib, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,28 +25,32 @@ const UserProfile = ({ visible, setVisible }) => {
           <UserProfileText>
             <ul>
               <li className="listTop">
-                <a>
-                  <span>
-                    <FontAwesomeIcon
-                      className="icons"
-                      icon={faPenNib}
-                      onClick={() => console.log("click sign up!")}
-                    />
-                  </span>
-                  SIGN UP
-                </a>
+                <MyLink to="/signup/">
+                  <a>
+                    <span>
+                      <FontAwesomeIcon
+                        className="icons"
+                        icon={faPenNib}
+                        onClick={() => console.log("click sign up!")}
+                      />
+                    </span>
+                    SIGN UP
+                  </a>
+                </MyLink>
               </li>
               <li>
-                <a>
-                  <span>
-                    <FontAwesomeIcon
-                      className="icons"
-                      icon={faUser}
-                      onClick={() => console.log("click log in!")}
-                    />
-                  </span>
-                  LOG IN
-                </a>
+                <MyLink to="/login/">
+                  <a>
+                    <span>
+                      <FontAwesomeIcon
+                        className="icons"
+                        icon={faUser}
+                        onClick={() => console.log("click log in!")}
+                      />
+                    </span>
+                    LOG IN
+                  </a>
+                </MyLink>
               </li>
               <li>
                 <a>
