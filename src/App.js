@@ -1,17 +1,13 @@
-import './App.css';
-import Header from './Components/Header/Header';
-import Gameboard from './Components/Gameboard/Gameboard';
-import Footer from './Components/Footer/Footer';
+import "./styles/index.css";
+import React from "react";
+import Router from "./application/router";
 
-
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <Header />
-      <Gameboard />
-      <Footer />
+      <Router />
     </div>
   );
-}
+};
 
 export default App;

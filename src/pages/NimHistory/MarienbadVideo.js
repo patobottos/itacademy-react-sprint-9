@@ -1,8 +1,8 @@
-import "./NimHistory.styles.css";
+import "./NimHistory.styled";
 
 const MarienbadVideo = () => {
   return (
-    <div className="popup-video">
+    <div className="video-box">
       <iframe 
         src="https://www.youtube.com/embed/-aPDfqYrIcg?autoplay=1&mute=1"
         frameborder="0"

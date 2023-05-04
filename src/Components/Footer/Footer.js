@@ -1,10 +1,11 @@
-import {FooterStyled} from './Footer.styled';
-
+import { FooterStyled } from "./Footer.styled";
 
 const Footer = () => {
   return (
-    <FooterStyled />
-  )
-}
+    <FooterStyled>
+      <p>Footer | 2023</p>
+    </FooterStyled>
+  );
+};
 
 export default Footer;

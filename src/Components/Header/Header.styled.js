@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   margin: 0;
-  padding: 5px 15px;
+  padding: 5px 1.5vw;
   border-bottom: 0.5px solid grey;
   position: relative;
   display: flex;
@@ -32,13 +32,20 @@ export const HeaderContainer = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
+  flex-direction: row;
   flex-grow: 1;
   justify-content: flex-end;
   align-items: center;
   margin: 0 20px;
 
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+
   .icons {
-    margin: 10px 20px;
+    color: white;
+    margin: 10px 1.4vw;
     height: 25px;
     padding: 5px;
     cursor: pointer;

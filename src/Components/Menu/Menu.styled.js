@@ -60,6 +60,7 @@ export const MenuText = styled.div`
   min-height: 200px;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 
   line-height: 3rem;
   font-family: Raleway, sans serif;

@@ -1,6 +1,5 @@
-import MarienbadVideo from "../NimHistory/MarienbadVideo";
-import NimHistory from "../NimHistory/NimHistory";
-import {PopupBackground, PopupOverlay, PopupContentBox, PopupText, PopupButton, PopupVideoBox} from './Popup.styled';
+import {PopupBackground, PopupOverlay, PopupContentBox, PopupText, PopupButton, } from './Popup.styled';
+import GameRules from "../../pages/GameRules/GameRules";
 
 const Popup = ({visible, setVisible}) => {
 
@@ -12,11 +11,8 @@ const Popup = ({visible, setVisible}) => {
             e.stopPropagation();
             setVisible(false)}}>X</PopupButton>
           <PopupText>
-            <NimHistory />
+            <GameRules />
           </PopupText>
-          <PopupVideoBox>
-            <MarienbadVideo/>
-          </PopupVideoBox>
         </PopupContentBox> 
       </PopupOverlay>
     </PopupBackground>

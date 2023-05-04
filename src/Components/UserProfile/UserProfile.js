@@ -6,7 +6,7 @@ import {
   UserProfileButton,
 } from "./UserProfile.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faPenNib, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 const UserProfile = ({ visible, setVisible }) => {
   return (
@@ -24,6 +24,18 @@ const UserProfile = ({ visible, setVisible }) => {
           <UserProfileText>
             <ul>
               <li className="listTop">
+                <a>
+                  <span>
+                    <FontAwesomeIcon
+                      className="icons"
+                      icon={faPenNib}
+                      onClick={() => console.log("click sign up!")}
+                    />
+                  </span>
+                  SIGN UP
+                </a>
+              </li>
+              <li>
                 <a>
                   <span>
                     <FontAwesomeIcon

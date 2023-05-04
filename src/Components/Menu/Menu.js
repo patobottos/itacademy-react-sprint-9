@@ -5,8 +5,13 @@ import {
   MenuText,
   MenuButton,
 } from "./Menu.styled";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRankingStar, faBook, faAnchor } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRankingStar,
+  faBook,
+  faAnchor,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Menu = ({ visible, setVisible }) => {
   return (
@@ -24,7 +29,7 @@ const Menu = ({ visible, setVisible }) => {
           <MenuText>
             <div>
               <ul>
-                <li className="listTop">
+                <li className="ranking listTop">
                   <a>
                     <span>
                       <FontAwesomeIcon
@@ -36,29 +41,37 @@ const Menu = ({ visible, setVisible }) => {
                     RANKING
                   </a>
                 </li>
-                <li>
-                  <a>
-                    <span>
-                      <FontAwesomeIcon
-                        className="icons"
-                        icon={faBook}
-                        onClick={() => console.log("click history!")}
-                      />
-                    </span>
-                    NIM HISTORY
-                  </a>
+                <li className="nimHistory">
+                  <Link to="/history/" style={{ textDecoration: "none" }}>
+                    <a>
+                      <span>
+                        <FontAwesomeIcon
+                          className="icons"
+                          icon={faBook}
+                          onClick={() => console.log("click history!")}
+                        />
+                      </span>
+                      NIM HISTORY
+                    </a>
+                  </Link>
                 </li>
-                <li>
-                  <a>
-                    <span>
-                      <FontAwesomeIcon
-                        className="icons"
-                        icon={faAnchor}
-                        onClick={() => console.log("click log in!")}
-                      />
-                    </span>
-                    OTHER LINKS
-                  </a>
+
+                <li className="externalLinks">
+                  <Link
+                    to="/external-links/"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <a>
+                      <span>
+                        <FontAwesomeIcon
+                          className="icons"
+                          icon={faAnchor}
+                          onClick={() => console.log("click log in!")}
+                        />
+                      </span>
+                      OTHER LINKS
+                    </a>
+                  </Link>
                 </li>
               </ul>
             </div>
