@@ -8,30 +8,39 @@ import {
   SuccessfulRegistration
 } from "./Signup.styled";
 import { Link } from "react-router-dom";
+import { createNewUser } from "../../application/api";
+
 
 export default function Signup() {
+
   const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    password: ""
+    "username": "",
+    "email": "",
+    "password": "",
+    "totalMatches": null,
+    "totalVictories": null,
+    "totalPoints": null
   });
 
   const [signedUpUser, setSignedUpUser] = useState(false);
   const navigate = useNavigate();
 
   const handleSignup = (event) => {
-    
     event.preventDefault();
 
     if (!userData.name || !userData.email || !userData.password) {
       alert("Please, fill in all the fields");
     } else {
       setUserData({
-        name: "",
-        email: "",
-        password: ""
+        "username": "",
+        "email": "",
+        "password": "",
+        "totalMatches": null,
+        "totalVictories": null,
+        "totalPoints": null
       });
-      localStorage.setItem("userInfo", JSON.stringify(userData));
+      //localStorage.setItem("userInfo", JSON.stringify(userData));
+      createNewUser(userData);
       setSignedUpUser(true);
       navigate("/login/");
     }
@@ -57,13 +66,13 @@ export default function Signup() {
         <SignupMainContainer>
           <form id="signup-form" onSubmit={handleSignup}>
             <SignupContainer>
-              <label htmlFor="username">Your full name: </label>
+              <label htmlFor="username">Your user name: </label>
               <input
                 type="text"
                 value={userData.name}
                 id="username"
-                name="username"
-                placeholder="Enter your full name"
+                username="username"
+                placeholder="Enter your user name"
                 required
                 onChange={(e) =>
                   setUserData({ ...userData, name: e.target.value })
