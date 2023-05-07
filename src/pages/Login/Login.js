@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { getUsers } from '../../application/api';
 import {
   LoginMainContainer,
   LoginContainer,
@@ -8,18 +8,35 @@ import {
   LoginFooter,
 } from "./Login.styled";
 
+
 export default function Login() {
   const [userEmailLogin, setUserEmailLogin] = useState("");
   const [userPasswordLogin, setUserPasswordLogin] = useState("");
-  //const userData = { userEmailLogin, userPasswordLogin };
   const [successfulLogin, setSuccessfulLogin] = useState(false);
   const navigate = useNavigate();
+
+  const [users, setUsers] = useState(null);
+
+  const getUsersData = async () => {
+    const allUsers = await getUsers();
+    console.log ('all Users=>', allUsers);
+    setUsers(allUsers);
+    console.log ('users=>', users);
+  }
+
+  useEffect(()=>{
+    getUsersData();
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    const savedUserData = localStorage.getItem("userInfo");
-    const savedUserDataParsed = JSON.parse(savedUserData);
+    //const savedUserData = localStorage.getItem("userInfo");
+    //const savedUserDataParsed = JSON.parse(savedUserData);
+
+    // CAPTURAR USERDATA DE LA BBDD
+    const savedUserData = "ALGO";
+    const savedUserDataParsed = "ALGO MÁS";
 
     console.log("saved user data al inicio", savedUserDataParsed);
     console.log("userEmailLogin", userEmailLogin);
@@ -38,7 +55,7 @@ export default function Login() {
         setSuccessfulLogin(true);
         localStorage.setItem("userInfo", JSON.stringify(savedUserData));
 
-        navigate("/welcome/");
+        navigate("/");
       } else {
         console.log("Login error!");
       }
@@ -49,7 +66,7 @@ export default function Login() {
     <div>
       {successfulLogin ? (
         <div>
-          <Link to="/welcome">Successful login!</Link>
+          <Link to="/">Successful login!</Link>
         </div>
       ) : (
         <LoginMainContainer>

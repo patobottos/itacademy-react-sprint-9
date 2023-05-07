@@ -14,6 +14,13 @@ const Gameboard = () => {
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
 
+  const [users, setUsers] = useState(null);
+  
+
+
+
+
+  // GAME LOGIC
   useEffect(() => {
     if (isFirstStep) {
       setIsFirstStep(false);
@@ -41,6 +48,7 @@ const Gameboard = () => {
     }
   }, [humanPlayer]);
 
+  // FUNCTION TO DELETE STICKS
   const eraseStick = (stickPosition) => {
     const resultErase = eraseSticks(stickPosition, gameboardSetting);
     //console.log("resultErase", resultErase);
@@ -135,9 +143,6 @@ const Gameboard = () => {
 
         <PlayingBtn onClick={() => setHumanPlayer(false)}>
           COMPUTER TURN
-        </PlayingBtn>
-        <PlayingBtn onClick={() => {return (7)}}>
-          FIREBASE
         </PlayingBtn>
       </ButtonContainer>
     </GameboardContainer>

@@ -8,8 +8,7 @@ import {
   SuccessfulRegistration
 } from "./Signup.styled";
 import { Link } from "react-router-dom";
-import { createNewUser } from "../../application/api";
-
+import { createUser } from '../../application/api';
 
 export default function Signup() {
 
@@ -25,10 +24,11 @@ export default function Signup() {
   const [signedUpUser, setSignedUpUser] = useState(false);
   const navigate = useNavigate();
 
+  // SEGUNDO INTENTO 
+
   const handleSignup = (event) => {
     event.preventDefault();
-
-    if (!userData.name || !userData.email || !userData.password) {
+    if (!userData.username || !userData.email || !userData.password) {
       alert("Please, fill in all the fields");
     } else {
       setUserData({
@@ -39,18 +39,18 @@ export default function Signup() {
         "totalVictories": null,
         "totalPoints": null
       });
-      //localStorage.setItem("userInfo", JSON.stringify(userData));
-      createNewUser(userData);
+
+      createUser(userData);
       setSignedUpUser(true);
       navigate("/login/");
-    }
 
-    console.log("User Name:", userData.name);
-    console.log("User Email:", userData.email);
-    console.log("User Password:", userData.password);
-    console.log("User signed up!");
-    console.log("user data", userData);
+    //console.log("User Name:", userData.username);
+    //console.log("User Email:", userData.email);
+    //console.log("User Password:", userData.password);
+    //console.log("User signed up!");
+    
   };
+}
 
   return (
     <div>
@@ -69,13 +69,13 @@ export default function Signup() {
               <label htmlFor="username">Your user name: </label>
               <input
                 type="text"
-                value={userData.name}
+                value={userData.username}
                 id="username"
                 username="username"
                 placeholder="Enter your user name"
                 required
                 onChange={(e) =>
-                  setUserData({ ...userData, name: e.target.value })
+                  setUserData({ ...userData, username: e.target.value })
                 }
               />
             </SignupContainer>
