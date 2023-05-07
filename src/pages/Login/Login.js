@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUsers } from '../../application/api';
 import {
@@ -6,60 +6,58 @@ import {
   LoginContainer,
   LoginButton,
   LoginFooter,
-} from "./Login.styled";
+} from "./Login.styled"; 
 
 
 export default function Login() {
-  const [userEmailLogin, setUserEmailLogin] = useState("");
-  const [userPasswordLogin, setUserPasswordLogin] = useState("");
+  const [userEmailLogin, setUserEmailLogin] = useState(null);
+  const [userPasswordLogin, setUserPasswordLogin] = useState(null);
   const [successfulLogin, setSuccessfulLogin] = useState(false);
   const navigate = useNavigate();
-
-  const [users, setUsers] = useState(null);
-
-  const getUsersData = async () => {
-    const allUsers = await getUsers();
-    console.log ('all Users=>', allUsers);
-    setUsers(allUsers);
-    console.log ('users=>', users);
-  }
+  const [persons, setPersons] = useState(); //TOTS ELS USUARIS
 
   useEffect(()=>{
     getUsersData();
   }, []);
 
+  // RETRIEVING USER DATABASE FROM FIREBASE
+  const getUsersData = async () => {
+    const allUsers = await getUsers();
+    setPersons(allUsers);
+  }
+  
+
   const handleLogin = (e) => {
     e.preventDefault();
 
-    //const savedUserData = localStorage.getItem("userInfo");
-    //const savedUserDataParsed = JSON.parse(savedUserData);
-
     // CAPTURAR USERDATA DE LA BBDD
-    const savedUserData = "ALGO";
-    const savedUserDataParsed = "ALGO MÁS";
-
-    console.log("saved user data al inicio", savedUserDataParsed);
+    const currentUserIndex = persons.findIndex(u => u.email === userEmailLogin);
+    //console.log('currentUserIndex',currentUserIndex);
+   
+    const savedUserData = persons[currentUserIndex];
+ 
     console.log("userEmailLogin", userEmailLogin);
     console.log("userPasswordLogin", userPasswordLogin);
-    console.log("savedUserDataParsed.email", savedUserDataParsed.email);
-    console.log("savedUserDataParsed.password", savedUserDataParsed.password);
+    console.log("savedUserData.email", savedUserData.email);
+    console.log("savedUserData.password", savedUserData.password);
 
     if (savedUserData === false) {
       alert("Please, sign up first");
     } else {
       if (
-        userEmailLogin === savedUserDataParsed.email &&
-        userPasswordLogin === savedUserDataParsed.password
+        userEmailLogin === savedUserData.email &&
+        userPasswordLogin === savedUserData.password
       ) {
         console.log("Succesful login!");
         setSuccessfulLogin(true);
-        localStorage.setItem("userInfo", JSON.stringify(savedUserData));
+        //localStorage.setItem("userInfo", JSON.stringify(savedUserData));
 
         navigate("/");
       } else {
         console.log("Login error!");
       }
     }
+
   };
 
   return (

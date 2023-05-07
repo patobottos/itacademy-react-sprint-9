@@ -1,7 +1,5 @@
 // DEPRECATED FILE MAY 04 2023 
 
-
-
 import detectWinner from "./detectWinner";
 import calculateSticksPerLine from "./calculateSticksPerLine";
 import sticksToErase from "./sticksToErase";
