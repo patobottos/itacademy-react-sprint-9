@@ -10,4 +10,8 @@ export const FooterStyled = styled.div`
   font-weight: 300;
   font-size: 0.8rem;
   letter-spacing: 0.06rem;
+
+  .city {
+    color: #D6A6E8;
+  }
 `

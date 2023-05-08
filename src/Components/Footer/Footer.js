@@ -3,7 +3,7 @@ import { FooterStyled } from "./Footer.styled";
 const Footer = () => {
   return (
     <FooterStyled>
-      <p>This is a footer | 2023</p>
+      <p>Patricio Bottos for IT Academy | <span className="city">Barcelona | 2023 </span></p>
     </FooterStyled>
   );
 };

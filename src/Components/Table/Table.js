@@ -17,15 +17,13 @@ export const Table = () => {
       TOTALMATCHES: 30,
       TOTALVICTORIES: 15,
       TOTALPOINTS: 15,
-      WINPERCENTAGE: 50,
     },
     {
       ID: 2,
       USERNAME: "Joan Colomo",
-      TOTALMATCHES: 30,
+      TOTALMATCHES: 32,
       TOTALVICTORIES: 20,
       TOTALPOINTS: 20,
-      WINPERCENTAGE: 66,
     },
     {
       ID: 3,
@@ -33,7 +31,6 @@ export const Table = () => {
       TOTALMATCHES: 4,
       TOTALVICTORIES: 1,
       TOTALPOINTS: 1,
-      WINPERCENTAGE: 25,
     },
     {
       ID: 4,
@@ -41,7 +38,6 @@ export const Table = () => {
       TOTALMATCHES: 2,
       TOTALVICTORIES: 0,
       TOTALPOINTS: 0,
-      WINPERCENTAGE: 0,
     },
     {
       ID: 5,
@@ -49,15 +45,30 @@ export const Table = () => {
       TOTALMATCHES: 20,
       TOTALVICTORIES: 10,
       TOTALPOINTS: 10,
-      WINPERCENTAGE: 50,
     },
   ];
 
-  // WE RANK RESULTS
+  //WE ADD WINPERCENTAGE
   const copyData = [...data];
+
+  copyData.forEach((item) => {
+    item.WINPERCENTAGE = Math.round(item.TOTALVICTORIES/item.TOTALMATCHES * 100);
+  });
+
+  // WE RANK RESULTS
   const rankedData = copyData.sort((a, b) => {
     return b.TOTALPOINTS - a.TOTALPOINTS;
   });
+
+  const rankedWithWinPercentage = rankedData.map(item => {
+    if (item.TOTALMATCHES === 0) {
+      return item.WINPERCENTAGE = 0
+    } else {
+      return item.WINPERCENTAGE = Math.round(item.TOTALVICTORIES/item.TOTALMATCHES * 100);
+    }
+  });
+  console.log('rankedWithWinPercentage',rankedWithWinPercentage);
+
 
   let RANK = 1;
   for (let i = 0; i < rankedData.length; i++) {
