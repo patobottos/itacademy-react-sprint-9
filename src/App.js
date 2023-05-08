@@ -1,11 +1,14 @@
 import "./styles/index.css";
 import React from "react";
+import Provider from "./application/Provider";
 import Router from "./application/router";
 
 const App = () => {
   return (
     <div className="App">
-      <Router />
+      <Provider>
+        <Router />
+      </Provider>
     </div>
   );
 };

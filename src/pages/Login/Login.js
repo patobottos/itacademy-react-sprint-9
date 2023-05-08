@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { useMyContext } from "../../application/Provider";
 import { Link, useNavigate } from "react-router-dom";
 import { getUsers } from '../../application/api';
 import {
@@ -12,7 +13,7 @@ import {
 export default function Login() {
   const [userEmailLogin, setUserEmailLogin] = useState(null);
   const [userPasswordLogin, setUserPasswordLogin] = useState(null);
-  const [successfulLogin, setSuccessfulLogin] = useState(false);
+  const [successfulLogin, setSuccessfulLogin] = useMyContext();
   const navigate = useNavigate();
   const [persons, setPersons] = useState(); //TOTS ELS USUARIS
 
