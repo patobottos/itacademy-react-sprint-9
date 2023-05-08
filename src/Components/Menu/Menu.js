@@ -30,16 +30,18 @@ const Menu = ({ visible, setVisible }) => {
             <div>
               <ul>
                 <li className="ranking listTop">
-                  <a>
-                    <span>
-                      <FontAwesomeIcon
-                        className="icons"
-                        icon={faRankingStar}
-                        onClick={() => console.log("click log in!")}
-                      />
-                    </span>
-                    RANKING
-                  </a>
+                  <MyLink to="/ranking/">
+                    <a>
+                      <span>
+                        <FontAwesomeIcon
+                          className="icons"
+                          icon={faRankingStar}
+                          onClick={() => console.log("click log in!")}
+                        />
+                      </span>
+                      RANKING
+                    </a>
+                  </MyLink>
                 </li>
                 <li className="nimHistory">
                   <MyLink to="/history/">
@@ -57,9 +59,7 @@ const Menu = ({ visible, setVisible }) => {
                 </li>
 
                 <li className="externalLinks">
-                  <MyLink
-                    to="/external-links/"
-                  >
+                  <MyLink to="/external-links/">
                     <a>
                       <span>
                         <FontAwesomeIcon

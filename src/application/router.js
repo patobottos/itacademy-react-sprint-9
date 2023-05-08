@@ -3,6 +3,7 @@ import AppContainer from "../Components/MainContainer/AppMainContainer.styled";
 import Header from "../Components/Header/Header";
 import Home from "../pages/Home/Home";
 import Footer from "../Components/Footer/Footer";
+import Ranking from "../pages/Ranking/Ranking";
 import NimHistory from "../pages/NimHistory/NimHistory";
 import ExternalLinks from "../pages/ExternalLinks/ExternalLinks";
 import Signup from "../pages/Signup/Signup";
@@ -15,6 +16,7 @@ const Router = () => {
         <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/ranking/" element={<Ranking />} />
           <Route path="/history/" element={<NimHistory />} />
           <Route path="/external-links/" element={<ExternalLinks />} />
           <Route path="/signup/" element={<Signup />} />

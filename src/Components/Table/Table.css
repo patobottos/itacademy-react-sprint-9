@@ -1,0 +1,46 @@
+table {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr;
+  max-width: 90%;
+  margin-top: 20px;
+}
+
+thead,
+tbody,
+tr {
+  display: contents;
+}
+
+th,
+td {
+  padding: 15px;
+  line-height: 1.5rem;
+  color: white;
+}
+
+th {
+  top: 0;
+  background-color: #555ea3;
+  text-align: center;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  position: sticky;
+}
+
+th:last-child {
+  border: 0;
+}
+
+td {
+  padding: 10px;
+  background-color: #B7BAD2;
+  background-color: #393656;
+  font-weight: 500;
+  height: 60px;
+}
+
+tr:nth-child(even) td {
+  background-color: #65637f;
+}
+
