@@ -8,6 +8,7 @@ import {
 import { MyLink } from "../../styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenNib, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { HandleLogout } from "../Logout/HandleLogout";
 
 const UserProfile = ({ visible, setVisible }) => {
   return (
@@ -58,7 +59,7 @@ const UserProfile = ({ visible, setVisible }) => {
                     <FontAwesomeIcon
                       className="icons"
                       icon={faRightFromBracket}
-                      onClick={() => console.log("click log out!")}
+                      onClick={() => HandleLogout()}
                     />
                   </span>
                   LOGOUT

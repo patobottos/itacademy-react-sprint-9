@@ -11,11 +11,11 @@ import {
 
 
 export default function Login() {
-  const [userEmailLogin, setUserEmailLogin] = useState(null);
-  const [userPasswordLogin, setUserPasswordLogin] = useState(null);
+  const [userEmailLogin, setUserEmailLogin] = useMyContext(null);
+  const [userPasswordLogin, setUserPasswordLogin] = useMyContext(null);
   const [successfulLogin, setSuccessfulLogin] = useMyContext();
   const navigate = useNavigate();
-  const [persons, setPersons] = useState(); //TOTS ELS USUARIS
+  const [persons, setPersons] = useMyContext(); //TOTS ELS USUARIS
 
   useEffect(()=>{
     getUsersData();
@@ -26,21 +26,19 @@ export default function Login() {
     const allUsers = await getUsers();
     setPersons(allUsers);
   }
-  
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // CAPTURAR USERDATA DE LA BBDD
+    // WE GET OUR USERDATA FROM USERS DATABASE
     const currentUserIndex = persons.findIndex(u => u.email === userEmailLogin);
     //console.log('currentUserIndex',currentUserIndex);
    
     const savedUserData = persons[currentUserIndex];
- 
-    console.log("userEmailLogin", userEmailLogin);
-    console.log("userPasswordLogin", userPasswordLogin);
-    console.log("savedUserData.email", savedUserData.email);
-    console.log("savedUserData.password", savedUserData.password);
+    //console.log("userEmailLogin", userEmailLogin);
+    //console.log("userPasswordLogin", userPasswordLogin);
+    //console.log("savedUserData.email", savedUserData.email);
+    //console.log("savedUserData.password", savedUserData.password);
 
     if (savedUserData === false) {
       alert("Please, sign up first");
@@ -51,14 +49,13 @@ export default function Login() {
       ) {
         console.log("Succesful login!");
         setSuccessfulLogin(true);
-        //localStorage.setItem("userInfo", JSON.stringify(savedUserData));
+        localStorage.setItem("storedUserData", JSON.stringify(savedUserData));
 
         navigate("/");
       } else {
         console.log("Login error!");
       }
     }
-
   };
 
   return (

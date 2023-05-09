@@ -5,11 +5,13 @@ import Login from "../Login/Login";
 
 const Ranking = () => {
   const [successfulLogin, setSuccessfulLogin] = useMyContext();
+  const [persons, setPersons] = useMyContext();
+  console.log('persons',persons);
 
   return (
     <MainContainer>
       <h1>Ranking</h1>
-      {successfulLogin ? <Table /> : <Login />}
+      {successfulLogin ? <Table data={persons} /> : <Login />}
     </MainContainer>
   );
 };
