@@ -29,16 +29,18 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    localStorage.clear();
+    
 
     // WE GET OUR USERDATA FROM USERS DATABASE
     const currentUserIndex = persons.findIndex(u => u.email === userEmailLogin);
     //console.log('currentUserIndex',currentUserIndex);
    
     const savedUserData = persons[currentUserIndex];
-    //console.log("userEmailLogin", userEmailLogin);
-    //console.log("userPasswordLogin", userPasswordLogin);
-    //console.log("savedUserData.email", savedUserData.email);
-    //console.log("savedUserData.password", savedUserData.password);
+    console.log("userEmailLogin", userEmailLogin);
+    console.log("userPasswordLogin", userPasswordLogin);
+    console.log("savedUserData.email", savedUserData.email);
+    console.log("savedUserData.password", savedUserData.password);
 
     if (savedUserData === false) {
       alert("Please, sign up first");
@@ -47,9 +49,10 @@ export default function Login() {
         userEmailLogin === savedUserData.email &&
         userPasswordLogin === savedUserData.password
       ) {
-        console.log("Succesful login!");
+        
         setSuccessfulLogin(true);
         localStorage.setItem("storedUserData", JSON.stringify(savedUserData));
+        console.log("Succesful login!!");
 
         navigate("/");
       } else {
@@ -61,9 +64,7 @@ export default function Login() {
   return (
     <div>
       {successfulLogin ? (
-        <div>
-          <Link to="/">Successful login!</Link>
-        </div>
+        navigate('/')
       ) : (
         <LoginMainContainer>
           <form>

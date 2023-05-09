@@ -9,7 +9,9 @@ export const Table = ({data}) => {
     { id: 5, key: "winPercentage", label: "Winning %" },
   ];
 
-  /* const data = [
+  /* DATABASE FOR TESTS 
+  
+  const data = [
     {
       ID: 1,
       USERNAME: "Max Headroom",

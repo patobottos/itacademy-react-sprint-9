@@ -7,10 +7,15 @@ import {
 } from "./UserProfile.styled";
 import { MyLink } from "../../styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenNib, faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faPenNib, faUser, faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import { HandleLogout } from "../Logout/HandleLogout";
 
 const UserProfile = ({ visible, setVisible }) => {
+  const handleClickLogout = () => {
+    console.log("click to log out");
+    HandleLogout();
+  };
+
   return (
     <UserProfileBackground visible={visible}>
       <UserProfileOverlay onClick={() => setVisible(false)}>
@@ -29,11 +34,7 @@ const UserProfile = ({ visible, setVisible }) => {
                 <MyLink to="/signup/">
                   <a>
                     <span>
-                      <FontAwesomeIcon
-                        className="icons"
-                        icon={faPenNib}
-                        onClick={() => console.log("click sign up!")}
-                      />
+                      <FontAwesomeIcon className="icons" icon={faPenNib} />
                     </span>
                     SIGN UP
                   </a>
@@ -43,27 +44,24 @@ const UserProfile = ({ visible, setVisible }) => {
                 <MyLink to="/login/">
                   <a>
                     <span>
-                      <FontAwesomeIcon
-                        className="icons"
-                        icon={faUser}
-                        onClick={() => console.log("click log in!")}
-                      />
+                      <FontAwesomeIcon className="icons" icon={faUser} />
                     </span>
                     LOG IN
                   </a>
                 </MyLink>
               </li>
               <li>
-                <a>
-                  <span>
-                    <FontAwesomeIcon
-                      className="icons"
-                      icon={faRightFromBracket}
-                      onClick={() => HandleLogout()}
-                    />
-                  </span>
-                  LOGOUT
-                </a>
+                <MyLink to="/" onClick={() => handleClickLogout()}>
+                  <a>
+                    <span>
+                      <FontAwesomeIcon
+                        className="icons"
+                        icon={faRightFromBracket}
+                      />
+                    </span>
+                    LOGOUT
+                  </a>
+                </MyLink>
               </li>
             </ul>
           </UserProfileText>

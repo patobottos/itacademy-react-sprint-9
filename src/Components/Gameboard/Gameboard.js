@@ -17,9 +17,6 @@ const Gameboard = () => {
   const [users, setUsers] = useState(null);
   
 
-
-
-
   // GAME LOGIC
   useEffect(() => {
     if (isFirstStep) {
