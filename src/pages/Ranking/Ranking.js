@@ -4,14 +4,14 @@ import { Table } from "../../Components/Table/Table";
 import Login from "../Login/Login";
 
 const Ranking = () => {
-  const [successfulLogin, setSuccessfulLogin] = useMyContext();
-  const [persons, setPersons] = useMyContext();
-  console.log('persons',persons);
+  const [userState, setUserState] = useMyContext();
+  console.log('persons', userState.persons);
+  console.log('userState.successfulLogin',userState.successfulLogin);
 
   return (
     <MainContainer>
       <h1>Ranking</h1>
-      {successfulLogin ? <Table data={persons} /> : <Login />}
+      {userState.successfulLogin ? <Table data={userState.persons} /> : <Login />}
     </MainContainer>
   );
 };

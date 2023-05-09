@@ -34,6 +34,7 @@ const Header = () => {
                 className="icons allowPopup"
                 icon={faBars}
                 onClick={() => setMenuOpen(true)}
+                
               />
             </span>
           </div>
@@ -41,7 +42,7 @@ const Header = () => {
           <div className="user">
             <span>
               <FontAwesomeIcon
-                className="icons"
+                className={"icons"}
                 icon={faUser}
                 onClick={() => setUserProfileOpen(true)}
               />

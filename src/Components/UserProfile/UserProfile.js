@@ -7,13 +7,25 @@ import {
 } from "./UserProfile.styled";
 import { MyLink } from "../../styles/styledComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenNib, faUser, faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
-import { HandleLogout } from "../Logout/HandleLogout";
+import {
+  faPenNib,
+  faUser,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import { useMyContext } from "../../application/Provider";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = ({ visible, setVisible }) => {
-  const handleClickLogout = () => {
-    console.log("click to log out");
-    HandleLogout();
+  const [userState, setUserState] = useMyContext();
+  const navigate = useNavigate();
+
+  //LOGOUT
+  const HandleClickLogout = () => {
+    console.log("click to log out"); // OK!
+    localStorage.clear();
+    setUserState({});
+    console.log("Successfully logged out!");
+    navigate("/");
   };
 
   return (
@@ -51,7 +63,7 @@ const UserProfile = ({ visible, setVisible }) => {
                 </MyLink>
               </li>
               <li>
-                <MyLink to="/" onClick={() => handleClickLogout()}>
+                <div onClick={HandleClickLogout}>
                   <a>
                     <span>
                       <FontAwesomeIcon
@@ -61,7 +73,7 @@ const UserProfile = ({ visible, setVisible }) => {
                     </span>
                     LOGOUT
                   </a>
-                </MyLink>
+                </div>
               </li>
             </ul>
           </UserProfileText>

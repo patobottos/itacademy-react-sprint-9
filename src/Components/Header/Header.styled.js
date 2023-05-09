@@ -6,6 +6,7 @@ export const HeaderContainer = styled.div`
   border-bottom: 0.5px solid grey;
   position: relative;
   display: flex;
+  z-index: 9999;
 
   .title {
     margin-left: 20px;
@@ -50,10 +51,13 @@ export const ButtonContainer = styled.div`
     padding: 5px;
     cursor: pointer;
 
+    
+
     :hover {
       color: #9f9daf;
       /* offset-x | offset-y | blur-radius | spread-radius | color */
       text-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.2);
     }
   }
+
 `;
