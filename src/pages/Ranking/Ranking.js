@@ -5,8 +5,8 @@ import Login from "../Login/Login";
 
 const Ranking = () => {
   const [userState, setUserState] = useMyContext();
-  console.log('persons', userState.persons);
-  console.log('userState.successfulLogin',userState.successfulLogin);
+  //console.log('persons', userState.persons);
+  //console.log('userState.successfulLogin en Ranking',userState.successfulLogin);
 
   return (
     <MainContainer>

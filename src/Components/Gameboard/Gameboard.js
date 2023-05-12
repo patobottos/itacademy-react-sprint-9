@@ -13,8 +13,6 @@ const Gameboard = () => {
   const gameboardSetting = [...allValues];
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
-
-  const [users, setUsers] = useState(null);
   
 
   // GAME LOGIC

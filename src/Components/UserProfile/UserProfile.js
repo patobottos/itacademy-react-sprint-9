@@ -20,11 +20,12 @@ const UserProfile = ({ visible, setVisible }) => {
   const navigate = useNavigate();
 
   //LOGOUT
-  const HandleClickLogout = () => {
+  const HandleLogout = () => {
     console.log("click to log out"); // OK!
     localStorage.clear();
     setUserState({});
     console.log("Successfully logged out!");
+    console.log('user after logout=>',userState);
     navigate("/");
   };
 
@@ -63,7 +64,7 @@ const UserProfile = ({ visible, setVisible }) => {
                 </MyLink>
               </li>
               <li>
-                <div onClick={HandleClickLogout}>
+                <div onClick={HandleLogout}>
                   <a>
                     <span>
                       <FontAwesomeIcon

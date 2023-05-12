@@ -5,10 +5,9 @@ export const useMyContext = () => useContext(AppContext);
 
 const Provider = ({ children }) => {
   const [userState, setUserState] = useState({
-    successfulLogin: "",
+    persons: "",
     userEmailLogin: "",
-    userPasswordLogin: "",
-    persons: null,
+    loggedIn: false
   });
 
   return (

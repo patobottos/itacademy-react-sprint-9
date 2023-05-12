@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useMyContext } from "../../application/Provider";
 import { Link, useNavigate } from "react-router-dom";
 import { getUsers } from "../../application/api";
@@ -11,6 +11,7 @@ import {
 
 const Login = () => {
   const [userState, setUserState] = useMyContext();
+  const [userPasswordLogin, setUserPasswordLogin] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,31 +26,28 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    localStorage.clear();
 
     // WE GET OUR USERDATA FROM USERS DATABASE
     const currentUserIndex = userState.persons.findIndex(
-      (user) => user.email === userState.userEmailLogin);
-    console.log("currentUserIndex", currentUserIndex);
+      (user) => user.email === userState.userEmailLogin
+    );
+    //console.log("currentUserIndex", currentUserIndex);
 
     if (currentUserIndex < 0) {
       alert("Please, sign up first");
       navigate("/signup/");
     } else {
       const savedUserData = userState.persons[currentUserIndex];
-      console.log("userEmailLogin", userState.userEmailLogin);
-      console.log("userPasswordLogin", userState.userPasswordLogin);
-      console.log("savedUserData.email", savedUserData.email);
-      console.log("savedUserData.password", savedUserData.password);
+      //console.log('savedUserData',savedUserData);
 
       if (
         userState.userEmailLogin === savedUserData.email &&
-        userState.userPasswordLogin === savedUserData.password
+        userPasswordLogin === savedUserData.password
       ) {
-        localStorage.setItem("storedUserData", JSON.stringify(savedUserData));
-        setUserState({ ...userState, successfulLogin: true });
+        setUserState({ ...userState, loggedIn: true });
+        // console.log('L48 - userState', userState);
+        //localStorage.setItem("storedUserData", JSON.stringify(savedUserData));
         console.log("Succesful login!!");
-        console.log('userState',userState);
         navigate("/");
       } else {
         alert("Login error! Please, try it again.");
@@ -71,7 +69,12 @@ const Login = () => {
               name="userEmail"
               placeholder="Enter your email"
               required
-              onChange={(event) => {setUserState({ ...userState, userEmailLogin: event.target.value}) }}
+              onChange={(event) => {
+                setUserState({
+                  ...userState,
+                  userEmailLogin: event.target.value,
+                });
+              }}
             />
           </LoginContainer>
 
@@ -79,16 +82,15 @@ const Login = () => {
             <label htmlFor="password">password: </label>
             <input
               type="password"
-              value={userState.userPasswordLogin}
+              value={userPasswordLogin}
               id="password"
               name="password"
               placeholder="Enter your password"
               required
-              onChange={(event) =>{ setUserState({ ...userState, userPasswordLogin: event.target.value}) }}
-              
+              onChange={(event) => setUserPasswordLogin(event.target.value)}
             />
           </LoginContainer>
-          <LoginButton type="button" onClick={handleLogin}>
+          <LoginButton type="submit" onClick={handleLogin}>
             LOG IN
           </LoginButton>
         </form>
