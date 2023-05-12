@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useMyContext } from "../../application/Provider";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../application/api";
 import {
   LoginMainContainer,
@@ -44,9 +44,9 @@ const Login = () => {
         userState.userEmailLogin === savedUserData.email &&
         userPasswordLogin === savedUserData.password
       ) {
-        setUserState({ ...userState, loggedIn: true });
-        // console.log('L48 - userState', userState);
-        //localStorage.setItem("storedUserData", JSON.stringify(savedUserData));
+        setUserState({ ...userState, loggedIn: true, userIndex: currentUserIndex});
+        console.log('userState at Login', userState);
+        //localStorage.setItem("storedUserData", JSON.stringify(savedUserData)); // DA ERROR AL SER GUARDADO
         console.log("Succesful login!!");
         navigate("/");
       } else {

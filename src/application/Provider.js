@@ -7,6 +7,7 @@ const Provider = ({ children }) => {
   const [userState, setUserState] = useState({
     persons: "",
     userEmailLogin: "",
+    userIndex: "",
     loggedIn: false
   });
 

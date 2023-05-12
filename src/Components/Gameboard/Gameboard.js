@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { GameboardContainer, StickLine } from "./Gameboard.styled";
+import {GameboardContainer,StickLine,TextGridContainer, TextMainContainer} from "./Gameboard.styled";
 import { Stick } from "../Sticks/Sticks";
 import allValuesInitial from "../../gameLogic/allValuesInitial";
 import eraseSticks from "../../gameMoves/eraseSticks";
-import { ButtonContainer, PlayingBtn } from "../PlayingButtons/PlayingButtons.styled";
+import {ButtonContainer,PlayingBtn,} from "../PlayingButtons/PlayingButtons.styled";
 import detectWinner from "../../gameLogic/detectWinner";
 import calculateSticksPerLine from "../../gameLogic/calculateSticksPerLine";
 import sticksToErase from "../../gameLogic/sticksToErase";
+import { useMyContext } from "../../application/Provider";
 
 const Gameboard = () => {
   const [allValues, setAllValues] = useState(allValuesInitial);
   const gameboardSetting = [...allValues];
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
-  
+  const [userState, setUserState] = useMyContext();
+  const userData = { ...userState };
+
+  const index = userData.userIndex;
+  const currentPlayer = userData.persons[index].username;
+  const playerMatches = userState.persons[index].totalMatches;
+  const playerVictories = userState.persons[index].totalVictories;
+  console.log("index", index);
 
   // GAME LOGIC
   useEffect(() => {
@@ -37,7 +45,12 @@ const Gameboard = () => {
         // 5. WE PAINT THE NEW KEYBOARD SETTING
         setAllValues(arraySticksToErase);
 
-        // 6. COMPUTER PASS THE TURN TO HUMAN PLAYER
+        // 6. WE UPDATE USER VALUES
+        playerMatches =+ 1;
+        console.log('Partidas jugadas',playerMatches);
+        
+        
+        // 7. COMPUTER PASS THE TURN TO HUMAN PLAYER
         setHumanPlayer(true);
       }
     }
@@ -140,6 +153,23 @@ const Gameboard = () => {
           COMPUTER TURN
         </PlayingBtn>
       </ButtonContainer>
+      {index < 0 ? (
+        ""
+      ) : (
+        <TextMainContainer>
+          <TextGridContainer>
+            <p>
+              User name:<span>{currentPlayer}</span>
+            </p>
+            <p>
+              Total matches:<span>{playerMatches}</span>
+            </p>
+            <p>
+              Total victories:<span>{playerVictories}</span>
+            </p>
+          </TextGridContainer>
+        </TextMainContainer>
+      )}
     </GameboardContainer>
   );
 };

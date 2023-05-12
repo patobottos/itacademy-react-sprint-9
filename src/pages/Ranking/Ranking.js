@@ -11,7 +11,7 @@ const Ranking = () => {
   return (
     <MainContainer>
       <h1>Ranking</h1>
-      {userState.successfulLogin ? <Table data={userState.persons} /> : <Login />}
+      {userState.loggedIn ? <Table data={userState.persons} /> : <Login />}
     </MainContainer>
   );
 };
