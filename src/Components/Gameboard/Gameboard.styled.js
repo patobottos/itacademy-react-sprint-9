@@ -34,9 +34,11 @@ export const TextMainContainer = styled.div`
 
 export const TextGridContainer = styled.div`
   margin: 0 auto;
-  padding-top: 10px;
+  padding-top: 30px;
   align-content: center;
   justify-content: center;
+  justify-items: center;
+  align-items: center;
   max-width: 600px;
   display: grid;
   grid-template-columns: 0.8fr 0.8fr 0.8fr;

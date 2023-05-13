@@ -64,16 +64,20 @@ const Gameboard = () => {
 
       if (winner == "computer") {
         let newTotalMatches = playerMatches + 1;
+        console.log('newTotalMatches',newTotalMatches);
+        let newTotalVictories = playerVictories;
+        console.log('newTotalVictories',newTotalVictories);
 
         const playerUpdatedData = {
           ...userInfo.allData,
           totalGames: newTotalMatches,
         };
-
+        console.log('L77 playerUpdatedData', playerUpdatedData);
+        
+        // WE UPDATE PROFILE IN FIREBASE DDBB
         updateUser(playerId, playerUpdatedData);
       }
     }   
-    
   }, [winner]);
 
   // GAME LOGIC
@@ -106,14 +110,12 @@ const Gameboard = () => {
         console.log("palitos compu al final de su movida", sticksSum);
 
         if (sticksSum === 1) {
+
           alert("Computer wins!");
 
           // 7. UPDATE RANKING
           // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT
           setWinner("computer");
-          
-          const dataToUpdate = UpdateRanking(winner);
-          console.log('dataToUpdate');
 
         } else {
           // 8. COMPUTER PASS THE TURN TO HUMAN PLAYER
