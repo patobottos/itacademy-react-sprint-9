@@ -53,7 +53,7 @@ export const Table = ({data}) => {
   copyData.forEach((item) => {
     item.winPercentage = Math.round(item.totalVictories/item.totalMatches * 100);
   });
-  console.log('copyData luego de forEach', copyData);
+  //console.log('copyData luego de forEach', copyData);
 
   // WE RANK RESULTS
   const rankedData = copyData.sort((a, b) => {
@@ -67,7 +67,7 @@ export const Table = ({data}) => {
       return item.winPercentage = Math.round(item.totalVictories/item.totalMatches * 100);
     }
   });
-  console.log('rankedWithWinPercentage',rankedWithWinPercentage);
+  //console.log('rankedWithWinPercentage',rankedWithWinPercentage);
 
 
   let rank = 1;
@@ -80,9 +80,7 @@ export const Table = ({data}) => {
   }
   
   const shownData = rankedData.slice(0, 4);
-  console.log('shownData', shownData);
-
-
+  //console.log('shownData', shownData);
 
   return (
     <table>

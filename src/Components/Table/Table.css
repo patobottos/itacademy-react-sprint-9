@@ -38,7 +38,7 @@ td {
   padding: 10px;
   background-color: #393656;
   font-weight: 500;
-  height: 60px;
+  height: 50px;
 }
 
 tr:nth-child(even) td {

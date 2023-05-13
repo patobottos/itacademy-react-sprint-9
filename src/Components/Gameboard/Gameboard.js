@@ -15,13 +15,39 @@ const Gameboard = () => {
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [userState, setUserState] = useMyContext();
-  const userData = { ...userState };
 
-  const index = userData.userIndex;
-  const currentPlayer = userData.persons[index].username;
-  const playerMatches = userState.persons[index].totalMatches;
-  const playerVictories = userState.persons[index].totalVictories;
-  console.log("index", index);
+  const userData = { ...userState };
+  //console.log('userData',userData);
+  const loggedIn = userData.loggedIn;
+  //console.log('logged in? ',loggedIn);
+
+  const [userInfo, setUserInfo] = useState({
+    index: "",
+    currentPlayer: "",
+    playerMatches: "",
+    playerVictories: "",
+  });
+
+  //WE SET USER DATA TO DISPLAY
+  useEffect(() => {
+    if (loggedIn) {
+      const index = userData.userIndex;
+      //console.log("index", index);
+      const currentPlayer = userData.persons[index].username;
+      const playerMatches = userData.persons[index].totalMatches;
+      const playerVictories = userData.persons[index].totalVictories;
+
+      setUserInfo({
+        ...userInfo,
+        index: index,
+        currentPlayer: currentPlayer,
+        playerMatches: playerMatches,
+        playerVictories: playerVictories,
+      });
+
+      //console.log('Current user info:',userInfo);
+    }
+  }, []);
 
   // GAME LOGIC
   useEffect(() => {
@@ -45,12 +71,7 @@ const Gameboard = () => {
         // 5. WE PAINT THE NEW KEYBOARD SETTING
         setAllValues(arraySticksToErase);
 
-        // 6. WE UPDATE USER VALUES
-        playerMatches =+ 1;
-        console.log('Partidas jugadas',playerMatches);
-        
-        
-        // 7. COMPUTER PASS THE TURN TO HUMAN PLAYER
+        // 6. COMPUTER PASS THE TURN TO HUMAN PLAYER
         setHumanPlayer(true);
       }
     }
@@ -153,20 +174,21 @@ const Gameboard = () => {
           COMPUTER TURN
         </PlayingBtn>
       </ButtonContainer>
-      {index < 0 ? (
-        ""
+      {!loggedIn ? (
+        ''
       ) : (
         <TextMainContainer>
           <TextGridContainer>
-            <p>
-              User name:<span>{currentPlayer}</span>
+          <p>
+              User name:<span>{userInfo.currentPlayer}</span>
             </p>
             <p>
-              Total matches:<span>{playerMatches}</span>
+              Total matches:<span>{userInfo.playerMatches}</span>
             </p>
             <p>
-              Total victories:<span>{playerVictories}</span>
+              Total victories:<span>{userInfo.playerVictories}</span>
             </p>
+
           </TextGridContainer>
         </TextMainContainer>
       )}
