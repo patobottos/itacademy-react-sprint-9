@@ -22,7 +22,7 @@ export const getUsers = async () => {
 };
 
 // READ WITH WHERE
-// Tened en cuenta que el tipo de dato de la condición debe coincidir con el tipo de dato que hay en Firebase o no obtendré un dato de respuesta
+// Tened en cuenta que el tipo de dato de la condición debe coincidir con el tipo de dato que hay en Firebase o no obtendréis un dato de respuesta
 export const getUsersByCondition = async (value) => {
   const colRef = collection(db, "users");
   const result = await getDocs(query(colRef, where("age", "==", value)));

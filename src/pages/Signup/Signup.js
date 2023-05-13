@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  Link } from "react-router-dom";
 import {
   SignupMainContainer,
   SignupContainer,
@@ -7,7 +7,6 @@ import {
   SignupButton,
   SuccessfulRegistration
 } from "./Signup.styled";
-import { Link } from "react-router-dom";
 import { createUser } from '../../application/api';
 
 
@@ -17,15 +16,13 @@ export default function Signup() {
     "username": "",
     "email": "",
     "password": "",
-    "totalMatches": null,
-    "totalVictories": null,
-    "totalPoints": null
+    "totalMatches": 0,
+    "totalVictories": 0,
+    "totalPoints": 0
   });
 
   const [signedUpUser, setSignedUpUser] = useState(false);
   const navigate = useNavigate();
-
-  // SEGUNDO INTENTO 
 
   const handleSignup = (event) => {
     event.preventDefault();

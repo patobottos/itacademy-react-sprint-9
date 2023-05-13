@@ -10,11 +10,11 @@ const detectWinner = (receivedValues) => {
 
   if (sticksSum === 1) {
     alert("Congratulations, you won!");
-    UpdateRanking();
+    const winner = "human";
+    UpdateRanking(winner);
 
   } else {
     console.log("We don't have winners yet... Let's go on playing!");
-    UpdateRanking();
   }
 }
 

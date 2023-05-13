@@ -1,31 +1,44 @@
 import React, { useEffect, useState } from "react";
-import {GameboardContainer,StickLine,TextGridContainer, TextMainContainer} from "./Gameboard.styled";
+import {
+  GameboardContainer,
+  StickLine,
+  TextGridContainer,
+  TextMainContainer,
+} from "./Gameboard.styled";
 import { Stick } from "../Sticks/Sticks";
 import allValuesInitial from "../../gameLogic/allValuesInitial";
 import eraseSticks from "../../gameMoves/eraseSticks";
-import {ButtonContainer,PlayingBtn,} from "../PlayingButtons/PlayingButtons.styled";
+import {
+  ButtonContainer,
+  PlayingBtn,
+} from "../PlayingButtons/PlayingButtons.styled";
 import detectWinner from "../../gameLogic/detectWinner";
 import calculateSticksPerLine from "../../gameLogic/calculateSticksPerLine";
 import sticksToErase from "../../gameLogic/sticksToErase";
 import { useMyContext } from "../../application/Provider";
+import UpdateRanking from "../../gameLogic/UpdateRanking";
+import {updateUser} from '../../application/api';
 
 const Gameboard = () => {
+  const [userState, setUserState] = useMyContext();
   const [allValues, setAllValues] = useState(allValuesInitial);
   const gameboardSetting = [...allValues];
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
-  const [userState, setUserState] = useMyContext();
+  const [winner, setWinner] = useState("");
 
   const userData = { ...userState };
   //console.log('userData',userData);
   const loggedIn = userData.loggedIn;
   //console.log('logged in? ',loggedIn);
 
+ //WE SET USER DATA TO DISPLAY - STATE TO SAVE THE OBJECT
   const [userInfo, setUserInfo] = useState({
     index: "",
     currentPlayer: "",
     playerMatches: "",
     playerVictories: "",
+    allData: "",
   });
 
   //WE SET USER DATA TO DISPLAY
@@ -36,6 +49,9 @@ const Gameboard = () => {
       const currentPlayer = userData.persons[index].username;
       const playerMatches = userData.persons[index].totalMatches;
       const playerVictories = userData.persons[index].totalVictories;
+      const allPlayerData = {...userData.persons[index]};
+      const playerId = allPlayerData.id;
+      console.log('all data =>',allPlayerData);
 
       setUserInfo({
         ...userInfo,
@@ -43,11 +59,22 @@ const Gameboard = () => {
         currentPlayer: currentPlayer,
         playerMatches: playerMatches,
         playerVictories: playerVictories,
+        allData: allPlayerData,
       });
 
-      //console.log('Current user info:',userInfo);
-    }
-  }, []);
+      if (winner == "computer") {
+        let newTotalMatches = playerMatches + 1;
+
+        const playerUpdatedData = {
+          ...userInfo.allData,
+          totalGames: newTotalMatches,
+        };
+
+        updateUser(playerId, playerUpdatedData);
+      }
+    }   
+    
+  }, [winner]);
 
   // GAME LOGIC
   useEffect(() => {
@@ -71,8 +98,27 @@ const Gameboard = () => {
         // 5. WE PAINT THE NEW KEYBOARD SETTING
         setAllValues(arraySticksToErase);
 
-        // 6. COMPUTER PASS THE TURN TO HUMAN PLAYER
-        setHumanPlayer(true);
+        // 6. WE CHECK IF COMPUTER WINS
+        const sticksSum = arraySticksToErase.reduce(
+          (accumulator, { stickValue }) => {
+            return accumulator + stickValue;
+          },0);
+        console.log("palitos compu al final de su movida", sticksSum);
+
+        if (sticksSum === 1) {
+          alert("Computer wins!");
+
+          // 7. UPDATE RANKING
+          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT
+          setWinner("computer");
+          
+          const dataToUpdate = UpdateRanking(winner);
+          console.log('dataToUpdate');
+
+        } else {
+          // 8. COMPUTER PASS THE TURN TO HUMAN PLAYER
+          setHumanPlayer(true);
+        }
       }
     }
   }, [humanPlayer]);
@@ -175,11 +221,11 @@ const Gameboard = () => {
         </PlayingBtn>
       </ButtonContainer>
       {!loggedIn ? (
-        ''
+        ""
       ) : (
         <TextMainContainer>
           <TextGridContainer>
-          <p>
+            <p>
               User name:<span>{userInfo.currentPlayer}</span>
             </p>
             <p>
@@ -188,7 +234,6 @@ const Gameboard = () => {
             <p>
               Total victories:<span>{userInfo.playerVictories}</span>
             </p>
-
           </TextGridContainer>
         </TextMainContainer>
       )}
