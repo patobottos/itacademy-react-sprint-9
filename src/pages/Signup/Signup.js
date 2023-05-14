@@ -18,7 +18,6 @@ export default function Signup() {
     "password": "",
     "totalMatches": 0,
     "totalVictories": 0,
-    "totalPoints": 0
   });
 
   const [signedUpUser, setSignedUpUser] = useState(false);

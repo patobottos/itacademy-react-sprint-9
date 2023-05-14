@@ -1,3 +1,6 @@
+// DEPRECATED AS FOR MAY 14th 2023
+
+
 import UpdateRanking from "../gameLogic/UpdateRanking";
 
 const detectWinner = (receivedValues) => {

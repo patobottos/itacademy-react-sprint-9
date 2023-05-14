@@ -12,12 +12,10 @@ import {
   ButtonContainer,
   PlayingBtn,
 } from "../PlayingButtons/PlayingButtons.styled";
-import detectWinner from "../../gameLogic/detectWinner";
 import calculateSticksPerLine from "../../gameLogic/calculateSticksPerLine";
 import sticksToErase from "../../gameLogic/sticksToErase";
 import { useMyContext } from "../../application/Provider";
-import UpdateRanking from "../../gameLogic/UpdateRanking";
-import {updateUser} from '../../application/api';
+import { updateUser } from "../../application/api";
 
 const Gameboard = () => {
   const [userState, setUserState] = useMyContext();
@@ -25,23 +23,23 @@ const Gameboard = () => {
   const gameboardSetting = [...allValues];
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
+  const [isEndGame, setIsEndGame] = useState(false);
   const [winner, setWinner] = useState("");
 
   const userData = { ...userState };
-  //console.log('userData',userData);
+  console.log("userData al inicio Gameboard", userData);
   const loggedIn = userData.loggedIn;
   //console.log('logged in? ',loggedIn);
 
- //WE SET USER DATA TO DISPLAY - STATE TO SAVE THE OBJECT
+  //WE SET USER DATA TO DISPLAY - STATE TO SAVE THE OBJECT
   const [userInfo, setUserInfo] = useState({
-    index: "",
     currentPlayer: "",
     playerMatches: "",
     playerVictories: "",
     allData: "",
   });
 
-  //WE SET USER DATA TO DISPLAY
+  //WE SET USER DATA TO DISPLAY IN THE BEGINNING
   useEffect(() => {
     if (loggedIn) {
       const index = userData.userIndex;
@@ -49,47 +47,105 @@ const Gameboard = () => {
       const currentPlayer = userData.persons[index].username;
       const playerMatches = userData.persons[index].totalMatches;
       const playerVictories = userData.persons[index].totalVictories;
-      const allPlayerData = {...userData.persons[index]};
-      const playerId = allPlayerData.id;
-      console.log('all data =>',allPlayerData);
+      const allPlayerData = { ...userData.persons[index] };
+      //console.log("all data =>", allPlayerData);
 
       setUserInfo({
         ...userInfo,
-        index: index,
         currentPlayer: currentPlayer,
         playerMatches: playerMatches,
         playerVictories: playerVictories,
         allData: allPlayerData,
       });
+    }
+  }, []);
 
-      if (winner == "computer") {
-        let newTotalMatches = playerMatches + 1;
-        console.log('newTotalMatches',newTotalMatches);
-        let newTotalVictories = playerVictories;
-        console.log('newTotalVictories',newTotalVictories);
+  // 7. WE UPDATE RANKING IN CASE OF WINNER
+  useEffect(() => {
+    if (loggedIn) {
+      const index = userData.userIndex;
+      const allPlayers = userData.persons;
+      const currentPlayer = userData.persons[index].username;
+      const playerMatches = userInfo.playerMatches;
+      const playerVictories = userInfo.playerVictories;
+      const allPlayerData = userInfo.allData;
+      const playerId = allPlayerData.id;
+      //console.log("data update win =>", allPlayerData);
 
-        const playerUpdatedData = {
-          ...userInfo.allData,
-          totalGames: newTotalMatches,
-        };
-        console.log('L77 playerUpdatedData', playerUpdatedData);
-        
-        // WE UPDATE PROFILE IN FIREBASE DDBB
-        updateUser(playerId, playerUpdatedData);
-      }
-    }   
+      if (winner == "human") {
+        setUserInfo({
+          ...userInfo,
+          currentPlayer: currentPlayer,
+          playerMatches: playerMatches + 1,
+          playerVictories: playerVictories + 1,
+          allData: allPlayerData,
+          allPlayersArray: allPlayers,
+        })
+      } else if (winner == "computer") {
+        setUserInfo({
+          ...userInfo,
+          currentPlayer: currentPlayer,
+          playerMatches: playerMatches + 1,
+          playerVictories: playerVictories,
+          allData: allPlayerData,
+          allPlayersArray: allPlayers,
+        })
+      };
+
+      const userNewInfo = { ...userInfo };
+      console.log('userNewInfo L93',userNewInfo);
+
+      const newTotalMatches = userNewInfo.playerMatches;
+      console.log('newTotalMatches L95',newTotalMatches);
+      const newTotalVictories = userNewInfo.playerVictories;
+      console.log('newTotalVictories L97',newTotalVictories);
+      
+
+      const playerUpdatedData = {
+        ...userNewInfo.allData,
+        totalMatches: newTotalMatches,
+        totalVictories: newTotalVictories,
+      };
+      console.log("L97 playerUpdatedData", playerUpdatedData);
+
+      /*
+      // WE CREATE UPDATED ARRAY OF ALL PLAYERS NEW VALUES
+      const newPlayersArray = allPlayerData.map((element) => {
+        if (allPlayerData.indexOf(element)  === index) {
+          element = playerUpdatedData;
+        } 
+      return element;
+      });
+
+      */
+
+      // WE UPDATE CONTEXT
+      setUserState({...userState, persons: playerUpdatedData,});
+
+      // WE UPDATE PROFILE IN FIREBASE DDBB
+      updateUser(playerId, playerUpdatedData);
+      
+    }
   }, [winner]);
 
   // GAME LOGIC
   useEffect(() => {
-    if (isFirstStep) {
+    if (isFirstStep && !isEndGame) {
       setIsFirstStep(false);
     } else {
       if (!humanPlayer) {
         const receivedValues = [...allValues];
 
         // 2. WE DETECT IF THE USER IS A WINNER
-        detectWinner(receivedValues);
+        let sticksSum = countSticks(receivedValues);
+        console.log('sticksum L97',sticksSum);
+        if (sticksSum === 1) {
+          alert("You win!");
+          // 7. UPDATE RANKING
+          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 44 or so
+          setWinner("human");
+          setIsEndGame(true);
+        } 
 
         // 3. CREATE ARRAY OF NUMBER OF STICKS IN EACH LINE
         const sticksPerLine = calculateSticksPerLine(receivedValues);
@@ -103,20 +159,17 @@ const Gameboard = () => {
         setAllValues(arraySticksToErase);
 
         // 6. WE CHECK IF COMPUTER WINS
-        const sticksSum = arraySticksToErase.reduce(
-          (accumulator, { stickValue }) => {
-            return accumulator + stickValue;
-          },0);
-        console.log("palitos compu al final de su movida", sticksSum);
+        sticksSum = countSticks((arraySticksToErase));
+        console.log("palitos compu al final de su movida - L119", sticksSum);
 
         if (sticksSum === 1) {
-
           alert("Computer wins!");
 
           // 7. UPDATE RANKING
-          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT
+          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 44 or so
           setWinner("computer");
-
+          setIsEndGame(true);
+          
         } else {
           // 8. COMPUTER PASS THE TURN TO HUMAN PLAYER
           setHumanPlayer(true);
@@ -124,6 +177,17 @@ const Gameboard = () => {
       }
     }
   }, [humanPlayer]);
+
+  // FUNCTION TO COUNT REMAINING STICKS
+  const countSticks = (array) => {
+    const sticksSum = array.reduce(
+      (accumulator, { stickValue }) => {
+        return accumulator + stickValue;
+      },
+      0
+    );
+    return sticksSum;
+  }
 
   // FUNCTION TO DELETE STICKS
   const eraseStick = (stickPosition) => {
