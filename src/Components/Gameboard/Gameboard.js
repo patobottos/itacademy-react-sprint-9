@@ -15,18 +15,22 @@ import {
 import calculateSticksPerLine from "../../gameLogic/calculateSticksPerLine";
 import sticksToErase from "../../gameLogic/sticksToErase";
 import { useMyContext } from "../../application/Provider";
-import { updateUser } from "../../application/api";
+import {updateUser, getUserById} from '../../application/api';
 
 const Gameboard = () => {
   const [userState, setUserState] = useMyContext();
   const [allValues, setAllValues] = useState(allValuesInitial);
   const gameboardSetting = [...allValues];
+
   const [humanPlayer, setHumanPlayer] = useState(true);
   const [isFirstStep, setIsFirstStep] = useState(true);
   const [isEndGame, setIsEndGame] = useState(false);
+  const [updatedFirebase, setUpdatedFirebase] = useState(false);
   const [winner, setWinner] = useState("");
 
   const userData = { ...userState };
+  const [userId, setUserId] = useState();
+
   console.log("userData al inicio Gameboard", userData);
   const loggedIn = userData.loggedIn;
   //console.log('logged in? ',loggedIn);
@@ -41,7 +45,7 @@ const Gameboard = () => {
 
   //WE SET USER DATA TO DISPLAY IN THE BEGINNING
   useEffect(() => {
-    if (loggedIn) {
+    if (loggedIn && !isEndGame) {
       const index = userData.userIndex;
       //console.log("index", index);
       const currentPlayer = userData.persons[index].username;
@@ -49,6 +53,8 @@ const Gameboard = () => {
       const playerVictories = userData.persons[index].totalVictories;
       const allPlayerData = { ...userData.persons[index] };
       //console.log("all data =>", allPlayerData);
+      const playerId = userData.persons[index].id;
+      setUserId(playerId);
 
       setUserInfo({
         ...userInfo,
@@ -60,73 +66,58 @@ const Gameboard = () => {
     }
   }, []);
 
-  // 7. WE UPDATE RANKING IN CASE OF WINNER
+  // 7. WE UPDATE WINNER PROFILE AT USER INFO STATE
   useEffect(() => {
     if (loggedIn) {
-      const index = userData.userIndex;
       const allPlayers = userData.persons;
-      const currentPlayer = userData.persons[index].username;
       const playerMatches = userInfo.playerMatches;
       const playerVictories = userInfo.playerVictories;
       const allPlayerData = userInfo.allData;
-      const playerId = allPlayerData.id;
-      //console.log("data update win =>", allPlayerData);
 
       if (winner == "human") {
         setUserInfo({
           ...userInfo,
-          currentPlayer: currentPlayer,
           playerMatches: playerMatches + 1,
           playerVictories: playerVictories + 1,
           allData: allPlayerData,
           allPlayersArray: allPlayers,
-        })
+        });
+        setIsEndGame(true);
       } else if (winner == "computer") {
         setUserInfo({
           ...userInfo,
-          currentPlayer: currentPlayer,
           playerMatches: playerMatches + 1,
           playerVictories: playerVictories,
           allData: allPlayerData,
           allPlayersArray: allPlayers,
-        })
-      };
+        });
+        setIsEndGame(true);
+      }
+    }
+  }, [winner]);
 
-      const userNewInfo = { ...userInfo };
-      console.log('userNewInfo L93',userNewInfo);
+  // 8. WE UPDATE FIREBASE PROFILE
+  useEffect(() => {
+    if (loggedIn && (winner == "human" | winner == "computer") && !updatedFirebase) {
+      const userNewInfo = { ...userInfo }; 
+      //console.log("userNewInfo L98", userNewInfo);
 
+      console.log('userId L101', userId);
       const newTotalMatches = userNewInfo.playerMatches;
-      console.log('newTotalMatches L95',newTotalMatches);
+      console.log("newTotalMatches L103", newTotalMatches);
       const newTotalVictories = userNewInfo.playerVictories;
-      console.log('newTotalVictories L97',newTotalVictories);
-      
+      console.log("newTotalVictories L105", newTotalVictories);
 
       const playerUpdatedData = {
         ...userNewInfo.allData,
         totalMatches: newTotalMatches,
         totalVictories: newTotalVictories,
       };
-      console.log("L97 playerUpdatedData", playerUpdatedData);
-
-      /*
-      // WE CREATE UPDATED ARRAY OF ALL PLAYERS NEW VALUES
-      const newPlayersArray = allPlayerData.map((element) => {
-        if (allPlayerData.indexOf(element)  === index) {
-          element = playerUpdatedData;
-        } 
-      return element;
-      });
-
-      */
-
-      // WE UPDATE CONTEXT
-      setUserState({...userState, persons: playerUpdatedData,});
-
-      // WE UPDATE PROFILE IN FIREBASE DDBB
-      updateUser(playerId, playerUpdatedData);
-      
-    }
-  }, [winner]);
+      console.log("L110 playerUpdatedData", playerUpdatedData);
+      updateUser(userId, playerUpdatedData);
+      setUpdatedFirebase(true);
+    }  
+  }, [isEndGame]);
 
   // GAME LOGIC
   useEffect(() => {
@@ -138,38 +129,35 @@ const Gameboard = () => {
 
         // 2. WE DETECT IF THE USER IS A WINNER
         let sticksSum = countSticks(receivedValues);
-        console.log('sticksum L97',sticksSum);
+        console.log("sticksum L97", sticksSum);
         if (sticksSum === 1) {
           alert("You win!");
-          // 7. UPDATE RANKING
-          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 44 or so
+          // 2.B. UPDATE RANKING
+          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 67 or so
           setWinner("human");
-          setIsEndGame(true);
-        } 
+        }
 
         // 3. CREATE ARRAY OF NUMBER OF STICKS IN EACH LINE
         const sticksPerLine = calculateSticksPerLine(receivedValues);
-        console.log("sticksPerLine", sticksPerLine);
+        //console.log("sticksPerLine", sticksPerLine);
 
         // 4. COMPUTER CHOSES STICK OR STICKS TO ERASE
         const arraySticksToErase = sticksToErase(receivedValues);
-        console.log("arraySticksToErase en ComputerTurn", arraySticksToErase);
+        //console.log("arraySticksToErase en ComputerTurn", arraySticksToErase);
 
         // 5. WE PAINT THE NEW KEYBOARD SETTING
         setAllValues(arraySticksToErase);
 
         // 6. WE CHECK IF COMPUTER WINS
-        sticksSum = countSticks((arraySticksToErase));
-        console.log("palitos compu al final de su movida - L119", sticksSum);
-
+        sticksSum = countSticks(arraySticksToErase);
+        //console.log("palitos compu al final de su movida - L119", sticksSum);
         if (sticksSum === 1) {
           alert("Computer wins!");
 
-          // 7. UPDATE RANKING
+          // 6.B. UPDATE RANKING
           // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 44 or so
           setWinner("computer");
-          setIsEndGame(true);
-          
+
         } else {
           // 8. COMPUTER PASS THE TURN TO HUMAN PLAYER
           setHumanPlayer(true);
@@ -180,14 +168,11 @@ const Gameboard = () => {
 
   // FUNCTION TO COUNT REMAINING STICKS
   const countSticks = (array) => {
-    const sticksSum = array.reduce(
-      (accumulator, { stickValue }) => {
-        return accumulator + stickValue;
-      },
-      0
-    );
+    const sticksSum = array.reduce((accumulator, { stickValue }) => {
+      return accumulator + stickValue;
+    }, 0);
     return sticksSum;
-  }
+  };
 
   // FUNCTION TO DELETE STICKS
   const eraseStick = (stickPosition) => {

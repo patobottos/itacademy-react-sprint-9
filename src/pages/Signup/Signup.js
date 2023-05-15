@@ -32,9 +32,8 @@ export default function Signup() {
         "username": "",
         "email": "",
         "password": "",
-        "totalMatches": null,
-        "totalVictories": null,
-        "totalPoints": null
+        "totalMatches": 0,
+        "totalVictories": 0,
       });
 
       createUser(userData);
@@ -45,7 +44,6 @@ export default function Signup() {
     //console.log("User Email:", userData.email);
     //console.log("User Password:", userData.password);
     //console.log("User signed up!");
-    
   };
 }
 
