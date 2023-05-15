@@ -66,7 +66,7 @@ const Gameboard = () => {
     }
   }, []);
 
-  // 7. WE UPDATE WINNER PROFILE AT USER INFO STATE
+  // 2B & 6B. WE UPDATE WINNER PROFILE AT USER INFO STATE
   useEffect(() => {
     if (loggedIn) {
       const allPlayers = userData.persons;
@@ -96,9 +96,9 @@ const Gameboard = () => {
     }
   }, [winner]);
 
-  // 8. WE UPDATE FIREBASE PROFILE
+  // 6.B. WE UPDATE FIREBASE PROFILE
   useEffect(() => {
-    if (loggedIn && (winner == "human" | winner == "computer") && !updatedFirebase) {
+    if (loggedIn && isEndGame && (winner == "human" | winner == "computer")) {
       const userNewInfo = { ...userInfo }; 
       //console.log("userNewInfo L98", userNewInfo);
 
@@ -114,8 +114,10 @@ const Gameboard = () => {
         totalVictories: newTotalVictories,
       };
       console.log("L110 playerUpdatedData", playerUpdatedData);
+      setUpdatedFirebase(false);
       updateUser(userId, playerUpdatedData);
       setUpdatedFirebase(true);
+      setIsFirstStep(true);
     }  
   }, [isEndGame]);
 
@@ -134,6 +136,7 @@ const Gameboard = () => {
           alert("You win!");
           // 2.B. UPDATE RANKING
           // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 67 or so
+          setIsEndGame(true);
           setWinner("human");
         }
 
@@ -154,9 +157,10 @@ const Gameboard = () => {
         if (sticksSum === 1) {
           alert("Computer wins!");
 
-          // 6.B. UPDATE RANKING
-          // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 44 or so
+          // 6.B. SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 69 or so
+          setIsEndGame(true);
           setWinner("computer");
+          
 
         } else {
           // 8. COMPUTER PASS THE TURN TO HUMAN PLAYER
@@ -180,6 +184,17 @@ const Gameboard = () => {
     //console.log("resultErase", resultErase);
     setAllValues(resultErase);
   };
+
+  // FUNCTION TO HANDLE NEW GAME
+  const handleClickNewGame = () => {
+    console.log("ok, let's play a new game!");
+    setIsEndGame(false);
+    setWinner("");
+    setHumanPlayer(true);
+    setIsFirstStep(true);
+    setAllValues(allValuesInitial);
+    //console.log("initialValues post click newgame", allValuesInitial);
+  }
 
   return (
     <GameboardContainer>
@@ -258,11 +273,7 @@ const Gameboard = () => {
 
       <ButtonContainer>
         <PlayingBtn
-          onClick={() => {
-            console.log("ok, let's play a new game!");
-            setAllValues(allValuesInitial);
-            console.log("initialValues post click newgame", allValuesInitial);
-          }}
+          onClick={handleClickNewGame}
         >
           NEW GAME
         </PlayingBtn>
