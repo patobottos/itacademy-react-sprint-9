@@ -32,7 +32,7 @@ const sticksToErase = (receivedValues) => {
   // WE BEGIN WITH STICK IN LINE 1
   if (sticksToTryLineOne.length > 0) {
 
-    console.log("Testing with line 1...");
+    //console.log("Testing with line 1...");
     const modifiedStick = turnValueToZero(sticksToTryLineOne);
     //console.log('modifiedStick',modifiedStick); // ==> OK!
 
@@ -46,13 +46,13 @@ const sticksToErase = (receivedValues) => {
       console.log("We have a winning move!=> ", firstBoardSettingInputToErase);
       arraySticksToErase = [...firstBoardSettingInputToErase];
     } else {
-      console.log("No valid moves in line 1...");
+      //console.log("No valid moves in line 1...");
     }
   }
 
   // WE FOLLOW WITH STICKS IN LINE 3
   if (arraySticksToErase.length < 1 && sticksToTryLineThree.length > 0) {
-    console.log("Testing with line 3...");
+    //console.log("Testing with line 3...");
 
     for (let i = sticksToTryLineThree.length - 1; i >= 0; i--) {
       const modifiedStick = turnValueToZero(sticksToTryLineThree);
@@ -78,8 +78,8 @@ const sticksToErase = (receivedValues) => {
 
   // WE FOLLOW WITH STICKS IN LINE 5
   if (arraySticksToErase.length < 1 && sticksToTryLineFive.length > 0) {
-    console.log("No valid moves in line 3");
-    console.log("Testing with line 5...");
+    //console.log("No valid moves in line 3");
+    //console.log("Testing with line 5...");
 
     for (let i = sticksToTryLineFive.length - 1; i >= 0; i--) {
       const modifiedStick = turnValueToZero(sticksToTryLineFive);
@@ -104,8 +104,8 @@ const sticksToErase = (receivedValues) => {
 
   // WE FOLLOW WITH STICKS IN LINE 7
   if (arraySticksToErase.length < 1 && sticksToTryLineSeven.length > 0) {
-    console.log("No valid moves in line 5");
-    console.log("Testing with line 7...");
+    //console.log("No valid moves in line 5");
+    //console.log("Testing with line 7...");
 
     for (let i = sticksToTryLineSeven.length - 1; i >= 0; i--) {
       const modifiedStick = turnValueToZero(sticksToTryLineSeven);
@@ -118,7 +118,7 @@ const sticksToErase = (receivedValues) => {
       //console.log("checkIfValidMove in Line7", checkIfValidMove);
 
       if (checkIfValidMove) {
-        console.log("eureka!");
+        //console.log("eureka!");
         arraySticksToErase = [...fourthBoardSettingInputToErase];
         break;
       } else {

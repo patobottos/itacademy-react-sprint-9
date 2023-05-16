@@ -30,10 +30,11 @@ const Gameboard = () => {
 
   const userData = { ...userState };
   const [userId, setUserId] = useState();
-
-  console.log("userData al inicio Gameboard", userData);
   const loggedIn = userData.loggedIn;
+
+  //console.log("userData al inicio Gameboard", userData);
   //console.log('logged in? ',loggedIn);
+  //console.log('userState L37',userState);
 
   //WE SET USER DATA TO DISPLAY - STATE TO SAVE THE OBJECT
   const [userInfo, setUserInfo] = useState({
@@ -92,32 +93,33 @@ const Gameboard = () => {
           allPlayersArray: allPlayers,
         });
         setIsEndGame(true);
+        console.log("Línia 96 => FETA");
       }
     }
   }, [winner]);
 
   // 6.B. WE UPDATE FIREBASE PROFILE
   useEffect(() => {
-    if (loggedIn && isEndGame && (winner == "human" | winner == "computer")) {
+    if (loggedIn && (winner == "human" | winner == "computer") && !updatedFirebase) {
       const userNewInfo = { ...userInfo }; 
-      //console.log("userNewInfo L98", userNewInfo);
-
-      console.log('userId L101', userId);
+      //console.log("userNewInfo L104", userNewInfo);
+      console.log('userId',userId);
+      
       const newTotalMatches = userNewInfo.playerMatches;
-      console.log("newTotalMatches L103", newTotalMatches);
+      console.log("newTotalMatches L108", newTotalMatches);
       const newTotalVictories = userNewInfo.playerVictories;
-      console.log("newTotalVictories L105", newTotalVictories);
+      console.log("newTotalVictories L110", newTotalVictories);
 
       const playerUpdatedData = {
         ...userNewInfo.allData,
         totalMatches: newTotalMatches,
         totalVictories: newTotalVictories,
       };
-      console.log("L110 playerUpdatedData", playerUpdatedData);
-      setUpdatedFirebase(false);
+      console.log("L117 playerUpdatedData", playerUpdatedData);
+      console.log('userId L121', userId);
+
       updateUser(userId, playerUpdatedData);
       setUpdatedFirebase(true);
-      setIsFirstStep(true);
     }  
   }, [isEndGame]);
 
@@ -131,12 +133,11 @@ const Gameboard = () => {
 
         // 2. WE DETECT IF THE USER IS A WINNER
         let sticksSum = countSticks(receivedValues);
-        console.log("sticksum L97", sticksSum);
+       // console.log("sticksum L97", sticksSum);
         if (sticksSum === 1) {
           alert("You win!");
           // 2.B. UPDATE RANKING
           // SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 67 or so
-          setIsEndGame(true);
           setWinner("human");
         }
 
@@ -158,9 +159,7 @@ const Gameboard = () => {
           alert("Computer wins!");
 
           // 6.B. SETWINNER TRIGGERS UPDATE RANKING INSIDE USE EFFECT - LINE 69 or so
-          setIsEndGame(true);
-          setWinner("computer");
-          
+          setWinner("computer"); 
 
         } else {
           // 8. COMPUTER PASS THE TURN TO HUMAN PLAYER
@@ -188,11 +187,12 @@ const Gameboard = () => {
   // FUNCTION TO HANDLE NEW GAME
   const handleClickNewGame = () => {
     console.log("ok, let's play a new game!");
+    setUpdatedFirebase(false);
     setIsEndGame(false);
     setWinner("");
-    setHumanPlayer(true);
-    setIsFirstStep(true);
     setAllValues(allValuesInitial);
+    setIsFirstStep(true);
+    setHumanPlayer(true);
     //console.log("initialValues post click newgame", allValuesInitial);
   }
 
